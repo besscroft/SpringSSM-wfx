@@ -26,7 +26,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="https://www.52bess.com/uploads/avatar.png" class="layui-nav-img">
-                    贝丝
+                    ${user.userName}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>

@@ -48,11 +48,11 @@
                     <div class="layui-card-header">登录</div>
                     <div class="layui-card-body">
 
-                        <form class="layui-form" action="" style="margin: auto;">
+                        <form class="layui-form" action="user/login" style="margin: auto;">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">账户</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入账户名" class="layui-input">
+                                    <input type="text" name="account" lay-verify="title" autocomplete="off" placeholder="请输入账户名" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
