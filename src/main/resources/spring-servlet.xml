@@ -8,13 +8,4 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:annotation-driven/>
-<!--    <mvc:annotation-driven conversion-service="converters"/>-->
-
-<!--    <bean id="converters" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-<!--        <property name="converters">-->
-<!--            <set>-->
-<!--                <bean class="com.qfedu.utils.MyDateConverter"></bean>-->
-<!--            </set>-->
-<!--        </property>-->
-<!--    </bean>-->
 </beans>
