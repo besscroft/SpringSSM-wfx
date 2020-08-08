@@ -11,7 +11,7 @@
 <head>
     <title>微分销平台管理系统</title>
     <base href="<%=request.getContextPath()%>/"/>
-    <link rel="stylesheet" href="css/layui.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -80,53 +80,34 @@
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/layui.all.js"></script>
-<script type="text/javascript" src="layui/lay/modules/element.js"></script>
+<script type="text/javascript" src="layui/layui.all.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
-        var element = layui.element;
+        // var $ = layui.jquery;
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+        element.render();
+        // element.render('nav', 'layui-nav-item');
+        // element.render('nav', 'test2');
+        // element.render('nav', 'test3');
     });
 
-    // $(function () {
-    //     $.get("http://localhost:8080/SpringSSM_wfx/user/twocheck",function(res){
-    //         console.log(res);
-    //         if (res.code == 200) {
-    //             var arr = res.data;
-    //             for(var i=0; i < arr.length; i++) {
-    //                 var optionStr = "<li class=\"layui-nav-item\">\n" +
-    //                     "                    <a class=\"\" href=\"javascript:;\" onclick=\"check('"+arr[i].moduleCode+"')\">"+arr[i].moduleName+"</a>\n" +
-    //                     "                    <dl class=\"layui-nav-child\" id=\""+arr[i].moduleCode+"\">\n" +
-    //                     "                        \n" +
-    //                     "                    </dl>\n" +
-    //                     "                </li>";
-    //                 $("#jiuzhe").append(optionStr);
-    //             }
-    //         }
-    //     },"json");
-    // });
-
     function check(a){
+        var element = layui.element;
         var moduleCode = a;
         console.log(moduleCode);
-        $("#"+moduleCode).html("<dd><a href=\"javascript:;\" style='display: none'></a></dd>");
+        $("#"+moduleCode).html("");
         $.post("http://localhost:8080/SpringSSM_wfx/module/check",{parentModule:moduleCode},function(res){
             console.log(res);
             if (res.code == 200) {
                 var arr = res.data;
                 for(var i=0; i < arr.length; i++) {
                     if (arr[i].leaf == 0) {
-                        var optionStr1 = "<dd>\n" +
-                            "\t\t\t\t\t\t\t\t\t<li class=\"layui-nav-item layui-nav-itemed\">\n" +
-                            "\t\t\t\t\t\t\t\t\t\t<a class=\"\" href=\"javascript:;\">"+arr[i].moduleName+"</a>\n" +
-                            "\t\t\t\t\t\t\t\t\t\t<dl class=\"layui-nav-child\">\n" +
-                            "\t\t\t\t\t\t\t\t\t\t\t<dd><a href=\"javascript:;\" target=\"main_self_frame\">列表一</a></dd>\n" +
-                            "\t\t\t\t\t\t\t\t\t\t</dl>\n" +
-                            "\t\t\t\t\t\t\t\t\t</li>\t\n" +
-                            "\t\t\t\t\t\t\t\t</dd>";
+                        var optionStr1 = "<dd><li class=\"layui-nav-item\" lay-filter=\"test2\"><a class=\"\" href=\"javascript:;\" target=\"main_self_frame\" onclick=\"check2('"+arr[i].moduleCode+"')\">"+arr[i].moduleName+"</a><dl class=\"layui-nav-child\" lay-filter=\"test3\"><dd><a href=\"javascript:;\" target=\"main_self_frame\">三级菜单（伪代码）</a></dd></dl></li></dd>";
                         $("#" + moduleCode).append(optionStr1);
+                        element.render(moduleCode);
                     } else {
-                        var optionStr2 = "<dd><a href=\"javascript:;\">"+arr[i].moduleName+"</a></dd>";
+                        var optionStr2 = "<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>";
                         $("#" + moduleCode).append(optionStr2);
                     }
                 }
@@ -134,6 +115,24 @@
         },"json");
     }
 
+    // function check2(b){
+    //     var element = layui.element;
+    //     var moduleCode2 = b;
+    //     console.log(moduleCode2);
+    //     $("#"+moduleCode2).html("");
+    //     $.post("http://localhost:8080/SpringSSM_wfx/module/check",{parentModule:moduleCode2},function(res){
+    //         console.log(res);
+    //         if (res.code == 200) {
+    //             var arr = res.data;
+    //             for(var i=0; i < arr.length; i++) {
+    //                 var optionStr3 = "<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>";
+    //                 $("#" + moduleCode2).append(optionStr3);
+    //                 element.render(moduleCode2);
+    //                 console.log("完成");
+    //             }
+    //         }
+    //     },"json");
+    // }
 </script>
 </body>
 </html>

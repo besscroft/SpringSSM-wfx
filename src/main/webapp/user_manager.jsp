@@ -10,7 +10,7 @@
 <head>
     <title>用户信息管理</title>
     <base href="<%=request.getContextPath()%>/"/>
-    <link rel="stylesheet" href="css/layui.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
     <style type="text/css">
         body{
             background-image: url(img/background.jpg);
@@ -66,7 +66,6 @@
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/layui.js"></script>
-<script type="text/javascript" src="js/element.js"></script>
+<script type="text/javascript" src="layui/layui.all.js"></script>
 </body>
 </html>

@@ -78,8 +78,7 @@
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="js/layui.all.js"></script>
-    <script type="text/javascript" src="js/element.js"></script>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
 <script>
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
