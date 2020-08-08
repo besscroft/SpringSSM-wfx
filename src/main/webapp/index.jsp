@@ -10,7 +10,7 @@
 <head>
     <title>微分销平台管理系统</title>
     <base href="<%=request.getContextPath()%>/"/>
-    <link rel="stylesheet" href="css/layui.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
     <style type="text/css">
         body{
             background-image: url(img/background.jpg);
@@ -76,10 +76,10 @@
         </div>
     </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/layui.js"></script>
-<script type="text/javascript" src="js/element.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/layui.all.js"></script>
+    <script type="text/javascript" src="js/element.js"></script>
 <script>
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){

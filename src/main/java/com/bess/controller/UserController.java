@@ -4,11 +4,14 @@ import com.bess.pojo.Module;
 import com.bess.pojo.User;
 import com.bess.service.ModuleService;
 import com.bess.service.UserService;
+import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public ModelAndView login(String account,String password) {
+    public ModelAndView login(String account, String password, HttpServletRequest request) {
         Map<String,Object> map = new HashMap<>();
         map.put("account",account);
         map.put("userPwd",password);
@@ -43,8 +46,25 @@ public class UserController {
         List<Module> moduleList = moduleService.getModuleByUserId(user.getUserId());
         System.out.println(user);
         ModelAndView modelAndView = new ModelAndView("/main.jsp");
-        modelAndView.addObject("user",user);
+//        modelAndView.addObject("user",user);
+        request.getSession().setAttribute("user",user);
         modelAndView.addObject("moduleList",moduleList);
         return modelAndView;
     }
+
+//    @ResponseBody
+//    @RequestMapping("/twocheck")
+//    public ResultVO twoCheck(HttpServletRequest request) {
+//        User user = (User) request.getSession().getAttribute("user");
+//        String userId = user.getUserId();
+//        List<Module> moduleList = moduleService.getModuleByUserId(userId);
+//        System.out.println(moduleList);
+//        ResultVO resultVO = null;
+//        if (moduleList != null) {
+//            resultVO =new ResultVO("200","sussces",moduleList);
+//        } else {
+//            resultVO = new ResultVO("300","fail",null);
+//        }
+//        return resultVO;
+//    }
 }
