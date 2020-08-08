@@ -1,6 +1,9 @@
 package com.bess.pojo;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -25,4 +28,5 @@ public class User {
     private Date loginTime;
     private String roleId;
     private String self;
+    private Module module;
 }
