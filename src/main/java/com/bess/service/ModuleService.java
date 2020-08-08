@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface ModuleService {
     public List<Module> getModuleByUserId(String userId);
+    public List<Module> getModuleByParentModule(String parentModule);
 }

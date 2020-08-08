@@ -26,4 +26,10 @@ public class ModuleServiceImpl implements ModuleService {
         List<Module> moduleList = moduleDAO.getModuleByUserId(userId);
         return moduleList;
     }
+
+    @Override
+    public List<Module> getModuleByParentModule(String parentModule) {
+        List<Module> moduleList = moduleDAO.getModuleByParentModule(parentModule);
+        return moduleList;
+    }
 }

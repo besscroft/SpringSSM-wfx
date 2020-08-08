@@ -43,14 +43,15 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <c:forEach items="${moduleList}" var="module" varStatus="xh">
-                    <c:if test="${xh.index == 0}">
-                        <li class="layui-nav-item layui-nav-itemed">
-                    </c:if>
-                    <c:if test="${xh.index != 0}">
-                        <li class="layui-nav-item">
-                    </c:if>
-                    <a class="" href="javascript:;">${module.moduleName}</a>
-                    <dl class="layui-nav-child">
+<%--                    <c:if test="${xh.index == 0}">--%>
+<%--                        <li class="layui-nav-item layui-nav-itemed">--%>
+<%--                    </c:if>--%>
+<%--                    <c:if test="${xh.index != 0}">--%>
+<%--                        <li class="layui-nav-item">--%>
+<%--                    </c:if>--%>
+                    <li class="layui-nav-item">
+                    <a class="" href="javascript:;" onclick="check('${module.moduleCode}')">${module.moduleName}</a>
+                    <dl class="layui-nav-child" id="${module.moduleCode}">
                         <dd><a href="javascript:;">列表一</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
                         <dd><a href="javascript:;">列表三</a></dd>
@@ -84,6 +85,24 @@
         var element = layui.element;
 
     });
+
+    function check(a){
+        var moduleCode = a;
+        console.log(moduleCode);
+        $("#"+a).html("<dd><a href=\"javascript:;\" style='display: none'></a></dd>");
+        $.post("http://localhost:8080/SpringSSM_wfx/module/check",{parentModule:moduleCode},function(res){
+            console.log(res);
+            if (res.code == 200) {
+                var arr = res.data;
+                for(var i=0; i < arr.length; i++) {
+                    var optionStr = "<dd><a href=\"javascript:;\">"+arr[i].moduleName+"</a></dd>";
+                    $("#" + a).append(optionStr);
+                }
+            }
+        },"json");
+    }
+
+
 </script>
 </body>
 </html>

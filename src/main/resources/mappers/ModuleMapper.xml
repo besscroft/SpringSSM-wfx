@@ -22,4 +22,9 @@
                    inner join user_info on sys_role_fun.role_id = user_info.role_id
         where user_info.user_id = '23946449' and sys_module.parent_module = '0101';
     </select>
+<!--    public List<Module> getModuleByParentModule(String parentModule);-->
+    <select id="getModuleByParentModule" resultSets="java.util.List" resultMap="moduleMap">
+        select module_id,module_code,module_name,link_url,module_order,parent_module,module_desc,expanded,leaf
+        from sys_module where parent_module = #{parentModule};
+    </select>
 </mapper>
