@@ -13,4 +13,6 @@
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/layui/**" location="/layui/"/>
+
 </beans>
