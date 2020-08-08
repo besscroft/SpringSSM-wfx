@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.bess.dao.ModuleDAO">
+<!--    public Module getModuleByUserId(int userId);-->
+    <resultMap id="moduleMap" type="Module">
+        <result column="module_id" property="moduleId"/>
+        <result column="module_code" property="moduleCode"/>
+        <result column="module_name" property="moduleName"/>
+        <result column="link_url" property="linkUrl"/>
+        <result column="module_order" property="moduleOrder"/>
+        <result column="parent_module" property="parentModule"/>
+        <result column="module_desc" property="moduleDesc"/>
+        <result column="expanded" property="expanded"/>
+        <result column="leaf" property="leaf"/>
+    </resultMap>
+    <select id="getModuleByUserId" resultSets="java.util.List" resultMap="moduleMap">
+        select sys_module.module_id,sys_module.module_code,sys_module.module_name,sys_module.link_url,sys_module.module_order,sys_module.parent_module,sys_module.module_desc,sys_module.expanded,sys_module.leaf from
+        sys_module inner join sys_role_fun on sys_module.parent_module = sys_role_fun.module_id
+                   inner join user_info on sys_role_fun.role_id = user_info.role_id
+        where user_info.user_id = '23946449' and sys_module.parent_module = '0101';
+    </select>
+<!--    public List<Module> getModuleByParentModule(String parentModule);-->
+    <select id="getModuleByParentModule" resultSets="java.util.List" resultMap="moduleMap">
+        select module_id,module_code,module_name,link_url,module_order,parent_module,module_desc,expanded,leaf
+        from sys_module where parent_module = #{parentModule};
+    </select>
+</mapper>

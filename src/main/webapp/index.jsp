@@ -48,7 +48,7 @@
                     <div class="layui-card-header">登录</div>
                     <div class="layui-card-body">
 
-                        <form class="layui-form" action="user/login" style="margin: auto;">
+                        <form class="layui-form" action="user/login" method="post" style="margin: auto;">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">账户</label>
                                 <div class="layui-input-block">

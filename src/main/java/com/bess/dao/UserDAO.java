@@ -9,5 +9,5 @@ import java.util.Map;
  * @DateTime 2020/8/7 18:05
  */
 public interface UserDAO {
-    public User getUser(Map<String,Object> map);
+    public User getUser(Map<String,Object> map);    // 登录
 }
