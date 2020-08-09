@@ -2,14 +2,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Bess Croft
-  Date: 2020/8/8
-  Time: 17:50
+  Date: 2020/8/9
+  Time: 12:27
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>用户信息管理</title>
+    <title>Title</title>
     <base href="<%=request.getContextPath()%>/"/>
     <link rel="stylesheet" href="layui/css/layui.css" />
     <style type="text/css">
@@ -24,11 +24,10 @@
     </style>
 </head>
 <body>
-
 <div class="layui-card" style="margin: 0.625rem 0.625rem 0.625rem 0.625rem;">
-    <div class="layui-card-header">用户信息管理</div>
+    <div class="layui-card-header">角色信息管理</div>
     <div class="layui-card-body">
-        <button type="button" class="layui-btn">添加用户</button>
+        <button type="button" class="layui-btn">添加用户角色</button>
         <table class="layui-table">
             <colgroup>
                 <col width="150">
@@ -40,36 +39,29 @@
                     <th>用户编号</th>
                     <th>用户名</th>
                     <th>备注</th>
-                    <th>人员类型</th>
-                    <th>启用状态</th>
-                    <th>最后登录时间</th>
+                    <th>角色名称</th>
+                    <th>角色描述</th>
+                    <th>角色类型</th>
+                    <th>角色权限</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-            <c:forEach items="${userList}" var="user">
+            <c:forEach items="${userRoleList}" var="userRole">
                 <tr>
-                    <td>${user.userId}</td>
-                    <td>${user.userName}</td>
-                    <td>${user.remark}</td>
+                    <td>${userRole.userId}</td>
+                    <td>${userRole.userName}</td>
+                    <td>${userRole.remark}</td>
+                    <td>${userRole.role.roleName}</td>
+                    <td>${userRole.role.roleDesc}</td>
                     <td>
-                        <c:choose>
-                            <c:when test="${user.userType == 1}">客服账号</c:when>
-                            <c:when test="${user.userType == 2}">管理账号</c:when>
-                            <c:when test="${user.userType == 3}">内置账号</c:when>
-                            <c:when test="${user.userType == 4}">财务账号</c:when>
-                            <c:otherwise>物流账号</c:otherwise>
-                        </c:choose>
+                        <c:if test="${userRole.role.roleType == 1}">业务角色</c:if>
+                        <c:if test="${userRole.role.roleType == 2}">管理角色</c:if>
                     </td>
-                    <td>
-                        <c:if test="${user.enabled == 0}">未启用</c:if>
-                        <c:if test="${user.enabled == 1}">启用中</c:if>
-                    </td>
-                    <td>${user.loginTime}</td>
+                    <td>（扩展留空）</td>
                     <td>
                         <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">修改</button>
                         <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">删除</button>
-                        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">授权</button>
                     </td>
                 </tr>
             </c:forEach>

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,5 +31,11 @@ public class UserServiceImpl implements UserService {
     public User getUser(Map<String, Object> map) {
         User user = userDAO.getUser(map);
         return user;
+    }
+
+    @Override
+    public List<User> listUser() {
+        List<User> userList = userDAO.listUser();
+        return userList;
     }
 }

@@ -29,4 +29,5 @@ public class User {
     private String roleId;
     private String self;
     private Module module;
+    private Role role;
 }

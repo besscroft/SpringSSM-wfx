@@ -32,4 +32,10 @@ public class ModuleServiceImpl implements ModuleService {
         List<Module> moduleList = moduleDAO.getModuleByParentModule(parentModule);
         return moduleList;
     }
+
+    @Override
+    public List<Module> listModule() {
+        List<Module> moduleList = moduleDAO.listModule();
+        return moduleList;
+    }
 }

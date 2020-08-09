@@ -27,4 +27,10 @@
         select module_id,module_code,module_name,link_url,module_order,parent_module,module_desc,expanded,leaf
         from sys_module where parent_module = #{parentModule};
     </select>
+<!--    public List<Module> listModule(); //获取所有的权限菜单（list）-->
+    <select id="listModule" resultSets="java.util.List" resultMap="moduleMap">
+        select module_id,module_code,module_name,link_url,module_order,parent_module,module_desc,expanded,leaf
+        from sys_module
+        order by parent_module;
+    </select>
 </mapper>

@@ -52,6 +52,14 @@ public class UserController {
         return modelAndView;
     }
 
+    @RequestMapping("/listUser")
+    public ModelAndView listUser() {
+        List<User> userList = userService.listUser();
+        ModelAndView modelAndView = new ModelAndView("/user_manager.jsp");
+        modelAndView.addObject("userList",userList);
+        return modelAndView;
+    }
+
 //    @ResponseBody
 //    @RequestMapping("/twocheck")
 //    public ResultVO twoCheck(HttpServletRequest request) {

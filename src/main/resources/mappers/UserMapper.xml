@@ -21,4 +21,9 @@
         select user_id,user_name,account,password,remark,user_type,enabled,login_time,role_id,self
         from user_info where account = #{account} and password = #{userPwd}
     </select>
+<!--    public List<User> listUser();   // 查询所有的用户信息-->
+    <select id="listUser" resultSets="java.util.List" resultMap="userMap">
+        select user_id,user_name,account,password,remark,user_type,enabled,login_time,role_id,self
+        from user_info
+    </select>
 </mapper>
