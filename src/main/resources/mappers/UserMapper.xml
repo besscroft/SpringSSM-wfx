@@ -26,4 +26,17 @@
         select user_id,user_name,account,password,remark,user_type,enabled,login_time,role_id,self
         from user_info
     </select>
+<!--    public int insertUser(Map<String,Object> map);  // 新增用户，往user_info表中插入数据-->
+    <insert id="insertUser">
+        insert into user_info(user_id,user_name,account,password,remark,user_type,enabled,login_time,role_id,self)
+        values(#{userId},#{userName},#{account},#{userPwd},#{remark},#{userType},#{enabled},#{loginTime},#{roleId},#{self});
+    </insert>
+<!--    public int deleteUserById(String userId);   // 删除用户-->
+    <delete id="deleteUserById">
+        delete from user_info where user_id = #{userId};
+    </delete>
+<!--    public String getRoleIdByUserId(String userId);  // 根据用户id查询role_id-->
+    <select id="getRoleIdByUserId" resultType="String">
+        select role_id from user_info where user_id = #{userId};
+    </select>
 </mapper>

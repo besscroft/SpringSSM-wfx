@@ -103,7 +103,7 @@
                 var arr = res.data;
                 for(var i=0; i < arr.length; i++) {
                     if (arr[i].leaf == 0) {
-                        var optionStr1 = "<dd><li class=\"layui-nav-item\" lay-filter=\"test2\"><a class=\"\" href=\"javascript:;\" target=\"main_self_frame\" onclick=\"check2('"+arr[i].moduleCode+"')\">"+arr[i].moduleName+"</a><dl class=\"layui-nav-child\" lay-filter=\"test3\"><dd><a href=\"javascript:;\" target=\"main_self_frame\">三级菜单（伪代码）</a></dd></dl></li></dd>";
+                        var optionStr1 = "<dd><li class=\"layui-nav-item\" lay-filter=\"test2\"><a class=\"\" href=\"javascript:;\" target=\"main_self_frame\" onclick=\"check2('"+arr[i].moduleCode+"')\">"+arr[i].moduleName+"</a><dl class=\"layui-nav-child\" lay-filter=\"test3\" id=\""+arr[i].moduleCode+"\"><dd><a href=\"javascript:;\" target=\"main_self_frame\">三级菜单（伪代码）</a></dd></dl></li></dd>";
                         $("#" + moduleCode).append(optionStr1);
                         element.render(moduleCode);
                     } else {
@@ -115,24 +115,23 @@
         },"json");
     }
 
-    // function check2(b){
-    //     var element = layui.element;
-    //     var moduleCode2 = b;
-    //     console.log(moduleCode2);
-    //     $("#"+moduleCode2).html("");
-    //     $.post("http://localhost:8080/SpringSSM_wfx/module/check",{parentModule:moduleCode2},function(res){
-    //         console.log(res);
-    //         if (res.code == 200) {
-    //             var arr = res.data;
-    //             for(var i=0; i < arr.length; i++) {
-    //                 var optionStr3 = "<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>";
-    //                 $("#" + moduleCode2).append(optionStr3);
-    //                 element.render(moduleCode2);
-    //                 console.log("完成");
-    //             }
-    //         }
-    //     },"json");
-    // }
+    function check2(b){
+        var element = layui.element;
+        var moduleCode2 = b;
+        console.log(b);
+        $("#"+b).html("");
+        $.post("http://localhost:8080/SpringSSM_wfx/module/check",{parentModule:moduleCode2},function(res){
+            console.log(res);
+            if (res.code == 200) {
+                var arr = res.data;
+                for(var i=0; i < arr.length; i++) {
+                    $("#" + moduleCode2).append("<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>");
+                    element.render(moduleCode2);
+                    // console.log("完成");
+                }
+            }
+        },"json");
+    }
 </script>
 </body>
 </html>

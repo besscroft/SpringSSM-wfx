@@ -20,4 +20,8 @@
         from user_info inner join sys_role_fun on user_info.role_id = sys_role_fun.role_id
         inner join sys_role on sys_role_fun.role_id = sys_role.role_code;
     </select>
+<!--    public int insertRoleFun(@Param("moduleId") String moduleId,@Param("roleId") String roleId); //新增数据进sys_role_fun表-->
+    <insert id="insertRoleFun">
+        insert into sys_role_fun(module_id,role_id) values(#{moduleId},#{roleId});
+    </insert>
 </mapper>
