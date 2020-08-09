@@ -69,7 +69,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <iframe src="#" name="main_self_frame" frameborder="0" class="layadmin-iframe" width="100%" style="height: 99.9%"></iframe>
+        <iframe src="hello.jsp" name="main_self_frame" frameborder="0" class="layadmin-iframe" width="100%" style="height: 99.9%"></iframe>
     </div>
 
     <div class="layui-footer">
