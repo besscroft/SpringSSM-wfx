@@ -1,3 +1,9 @@
 target/
 .idea
 SpringSSM-wfx.iml
+wfx-beans/target
+wfx-dao/target
+wfx-manager/target
+wfx-beans/wfx-beans.iml
+wfx-dao/wfx-dao.iml
+wfx-manager/wfx-manager.iml
