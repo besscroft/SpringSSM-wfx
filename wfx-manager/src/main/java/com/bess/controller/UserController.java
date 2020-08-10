@@ -4,8 +4,10 @@ import com.bess.beans.Module;
 import com.bess.beans.User;
 import com.bess.service.ModuleService;
 import com.bess.service.UserService;
+import com.bess.vo.LayuiVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -48,5 +50,14 @@ public class UserController {
             modelAndView.addObject("tips","<label color='red'>帐号或密码错误！</label>");
         }
         return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping("list")
+    public LayuiVO listUser(int page, int limit) {
+        List<User> users = userService.listUser();
+        List<User> pageData = userService.listUserByPage(page, limit);
+        LayuiVO vo = new LayuiVO(0, "success", users.size() , pageData);
+        return vo;
     }
 }

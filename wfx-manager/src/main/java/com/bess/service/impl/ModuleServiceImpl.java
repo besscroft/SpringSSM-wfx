@@ -47,7 +47,8 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public List<Module> listModulesByPage(int start, int limit) {
+    public List<Module> listModulesByPage(int page, int limit) {
+        int start = (page-1)*limit;
         return moduleDAO.listModulesByPage(start,limit);
     }
 }

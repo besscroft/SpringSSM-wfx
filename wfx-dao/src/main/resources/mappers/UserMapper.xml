@@ -19,4 +19,15 @@
         select user_id,user_name,account,password,remark,enabled,login_time
         from user_info where account = #{account} and password = #{userPwd} and enabled=1
     </select>
+<!--    public List<User> listUserByPage(@Param("start") int start,
+                               @Param("limit") int limit);   // 查询所有用户信息-->
+    <select id="listUserByPage" resultSets="java.util.List" resultMap="userMap">
+        select user_id,user_name,account,password,remark,enabled,login_time
+        from user_info limit #{start},#{limit}
+    </select>
+<!--    public List<User> listUser();   // 查询所有用户信息-->
+    <select id="listUser" resultSets="java.util.List" resultMap="userMap">
+        select user_id,user_name,account,password,remark,enabled,login_time
+        from user_info
+    </select>
 </mapper>

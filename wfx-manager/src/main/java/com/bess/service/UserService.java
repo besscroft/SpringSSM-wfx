@@ -12,6 +12,7 @@ import java.util.Map;
  * @DateTime 2020/8/7 22:50
  */
 public interface UserService {
-    public User checkLogin(@Param("account") String account,
-                           @Param("password") String userPwd);  // 登录
+    public User checkLogin(String account,String userPwd);  // 登录
+    public List<User> listUser();   // 查询所有用户信息
+    public List<User> listUserByPage(int page,int limit);   // 分页
 }

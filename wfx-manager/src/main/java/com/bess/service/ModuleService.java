@@ -17,6 +17,5 @@ public interface ModuleService {
     public List<Module> listFirstLevelModules();    // 查一级菜单
     public List<Module> listAllModules();   // 查询所有权限
     public List<Module> listModulesByParent(String parentModuleCode);   // 根据父菜单查询子菜单
-    public List<Module> listModulesByPage(@Param("start") int start,
-                                          @Param("limit") int limit);   // 分页
+    public List<Module> listModulesByPage(int page,int limit);   // 分页
 }
