@@ -13,4 +13,7 @@ import java.util.Map;
 public interface UserDAO {
     public User checkLogin(@Param("account") String account,
                            @Param("userPwd") String userPwd);  // 登录
+    public List<User> listUser();   // 查询所有用户信息
+    public List<User> listUserByPage(@Param("start") int start,
+                               @Param("limit") int limit);   // 分页
 }
