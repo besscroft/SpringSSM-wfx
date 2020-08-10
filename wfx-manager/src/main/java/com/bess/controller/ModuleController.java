@@ -2,6 +2,7 @@ package com.bess.controller;
 
 import com.bess.beans.Module;
 import com.bess.service.ModuleService;
+import com.bess.vo.LayuiVO;
 import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,26 +27,14 @@ public class ModuleController {
     }
 
     @ResponseBody
-    @RequestMapping("/check")
-    public ResultVO checkModule(String parentModule){
-        System.out.println(parentModule);
-        List<Module> moduleList = moduleService.getModuleByParentModule(parentModule);
-        System.out.println(moduleList);
-        ResultVO resultVO = null;
-        if (moduleList != null) {
-            resultVO =new ResultVO("200","sussces",moduleList);
-        } else {
-            resultVO = new ResultVO("300","fail",null);
-        }
-        return resultVO;
-    }
+    @RequestMapping("/list")
+    public LayuiVO listModules(int page, int limit){
 
-    @RequestMapping("/listModule")
-    public ModelAndView listModule(){
-        List<Module> moduleList = moduleService.listModule();
-        System.out.println(moduleList);
-        ModelAndView modelAndView = new ModelAndView("/module_manager.jsp");
-        modelAndView.addObject("moduleList",moduleList);
-        return modelAndView;
+        //List<Module> modules = moduleService.listFirstLevelModules();
+        List<Module> modules = moduleService.listAllModules();
+        List<Module> pageData = moduleService.listModulesByPage(page, limit);
+
+        LayuiVO vo = new LayuiVO(0, "success", modules.size() , pageData);
+        return vo;
     }
 }

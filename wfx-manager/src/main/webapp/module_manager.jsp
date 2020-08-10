@@ -28,63 +28,43 @@
     <div class="layui-card-header">菜单信息管理</div>
     <div class="layui-card-body">
         <button type="button" class="layui-btn">添加菜单选项</button>
-        <table class="layui-table" lay-size="sm">
-            <colgroup>
-                <col width="150">
-                <col width="200">
-                <col>
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>菜单编号</th>
-                    <th>菜单编码</th>
-                    <th>功能名称</th>
-                    <th>请求路径</th>
-                    <th>排序编号</th>
-                    <th>上级功能</th>
-                    <th>权限描述</th>
-                    <th>是否展开</th>
-                    <th>是否叶子节点</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${moduleList}" var="module">
-                <tr>
-                    <td>${module.moduleId}</td>
-                    <td>${module.moduleCode}</td>
-                    <td>${module.moduleName}</td>
-                    <td>${module.linkUrl}</td>
-                    <td>${module.moduleOrder}</td>
-                    <td>${module.parentModule}</td>
-                    <td>${module.moduleDesc}</td>
-                    <td>
-                        <c:if test="${module.expanded == 1}">是</c:if>
-                        <c:if test="${module.expanded == 0}">否</c:if>
-                    </td>
-                    <td>
-                        <c:if test="${module.leaf == 0}">否</c:if>
-                        <c:if test="${module.leaf == 1}">是</c:if>
-                    </td>
-                    <td>
-                        <c:if test="${module.moduleCode == '0101'}">
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-disabled">修改</button>
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-disabled">删除</button>
-                        </c:if>
-                        <c:if test="${module.moduleCode != '0101'}">
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">修改</button>
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">删除</button>
-                        </c:if>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <table id="demo" lay-filter="test"></table>
+
+        <script type="text/html" id="btnTpl">
+            <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" onclick="doDel('{{d.moduleCode}}')"/>
+            <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" />
+        </script>
+
+
     </div>
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="layui/layui.all.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 500
+            ,url: 'module/list' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'moduleCode', title: '菜单编码', width:200, sort: true, fixed: 'left'},
+                {field: 'moduleName', title: '功能名称', width:280},
+                {field: 'moduleUrl', title: '请求路径', width:400, sort: true},
+                {title: '操作',templet:"#btnTpl" , fixed:'right'}
+            ]]
+            ,limit:12
+            ,limits:[10,12,15]
+        });
+    });
+
+    function doDel(code){
+        console.log("delete:"+code);
+    }
+</script>
 </body>
 </html>

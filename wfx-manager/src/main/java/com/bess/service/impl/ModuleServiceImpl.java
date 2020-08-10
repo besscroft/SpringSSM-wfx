@@ -22,20 +22,32 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
-    public List<Module> getModuleByUserId(String userId) {
-        List<Module> moduleList = moduleDAO.getModuleByUserId(userId);
-        return moduleList;
+    public List<Module> listModules() {
+        return moduleDAO.listModules();
     }
 
     @Override
-    public List<Module> getModuleByParentModule(String parentModule) {
-        List<Module> moduleList = moduleDAO.getModuleByParentModule(parentModule);
-        return moduleList;
+    public List<Module> listModulesByAccount(String account) {
+        return moduleDAO.listModulesByAccount(account);
     }
 
     @Override
-    public List<Module> listModule() {
-        List<Module> moduleList = moduleDAO.listModule();
-        return moduleList;
+    public List<Module> listFirstLevelModules() {
+        return moduleDAO.listFirstLevelModules();
+    }
+
+    @Override
+    public List<Module> listAllModules() {
+        return moduleDAO.listAllModules();
+    }
+
+    @Override
+    public List<Module> listModulesByParent(String parentModuleCode) {
+        return moduleDAO.listModulesByParent(parentModuleCode);
+    }
+
+    @Override
+    public List<Module> listModulesByPage(int start, int limit) {
+        return moduleDAO.listModulesByPage(start,limit);
     }
 }

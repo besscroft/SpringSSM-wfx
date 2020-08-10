@@ -21,11 +21,6 @@ public class User {
     private String account;
     private String userPwd;
     private String remark;
-    private String userType;
     private String enabled;
     private Date loginTime;
-    private String roleId;
-    private String self;
-    private Module module;
-    private Role role;
 }

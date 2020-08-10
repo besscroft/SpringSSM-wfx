@@ -1,4 +1,4 @@
-package com.bess.beans;
+package com.bess.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,15 @@ import java.util.List;
 
 /**
  * @Author Bess Croft
- * @DateTime 2020/8/8 9:37
+ * @DateTime 2020/8/10 19:50
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Module {
-    private String moduleCode;
-    private String moduleName;
-    private String moduleUrl;
-    private List<Module> moduleList;
+public class LayuiVO {
+    private int code;
+    private String msg;
+    private int count;
+    private List data;
 }

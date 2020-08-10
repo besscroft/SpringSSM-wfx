@@ -1,6 +1,7 @@
 package com.bess.dao;
 
 import com.bess.beans.Module;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,7 +10,13 @@ import java.util.List;
  * @DateTime 2020/8/8 10:04
  */
 public interface ModuleDAO {
-    public List<Module> getModuleByUserId(String userId);   // 根据用户的id查询所有的权限信息
-    public List<Module> getModuleByParentModule(String parentModule);   // 根据一级权限的module_code(parent_module)查询二级权限
-    public List<Module> listModule(); //获取所有的权限菜单（list）
+    public List<Module> listModules();  // 查询所有权限(所有菜单信息）
+
+    public List<Module> listModulesByAccount(String account);   // 根据账户查询该账户的所有权限
+
+    public List<Module> listFirstLevelModules();    // 查一级菜单
+    public List<Module> listAllModules();   // 查询所有权限
+    public List<Module> listModulesByParent(String parentModuleCode);   // 根据父菜单查询子菜单
+    public List<Module> listModulesByPage(@Param("start") int start,
+                                          @Param("limit") int limit);   // 分页
 }

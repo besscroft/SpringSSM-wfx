@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.bess.dao.ModuleDAO">
+<!--    public List<Module> listModules();  // 查询所有权限-->
+    <resultMap id="moduleMap" type="Module">
+        <id column="m1_code" property="moduleCode"/>
+        <result column="m1_name" property="moduleName"/>
+        <result column="m1_url" property="moduleUrl"/>
+        <collection property="moduleList" ofType="Module">
+            <result column="m2_code" property="moduleCode"/>
+            <result column="m2_name" property="moduleName"/>
+            <result column="m2_url" property="moduleUrl"/>
+            <collection property="moduleList" ofType="Module">
+                <result column="m3_code" property="moduleCode"/>
+                <result column="m3_name" property="moduleName"/>
+                <result column="m3_url" property="moduleUrl"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="listModules" resultMap="moduleMap">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url,
+               m2.module_code m2_code,m2.module_name m2_name, m2.link_url m2_url,
+               m3.module_code m3_code,m3.module_name m3_name, m3.link_url m3_url
+        from sys_module m1 INNER JOIN sys_module m2 INNER JOIN sys_module m3
+        on m1.module_code=m2.parent_module and m3.parent_module=m2.module_code
+        where m1.parent_module='01'
+    </select>
+<!--    public List<Module> listModulesByAccount(String account);   // 根据账户查询该账户的所有权限-->
+    <select id="listModulesByAccount" resultMap="moduleMap">
+
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url,
+               m2.module_code m2_code,m2.module_name m2_name, m2.link_url m2_url,
+               m3.module_code m3_code,m3.module_name m3_name, m3.link_url m3_url
+        from sys_module m1 INNER JOIN sys_module m2 INNER JOIN sys_module m3
+        on m1.module_code=m2.parent_module and m3.parent_module=m2.module_code
+        where m1.parent_module='01' and m3.module_code in
+       (
+           select rm.module_id
+           from user_info u INNER JOIN sys_user_role ur INNER JOIN sys_role_fun rm
+           on u.user_id = ur.user_id and ur.role_id=rm.role_id
+           where u.account=#{account}
+       )
+    </select>
+<!--    public List<Module> listFirstLevelModules();-->
+    <resultMap id="moduleMap2" type="Module">
+        <id column="m1_code" property="moduleCode"/>
+        <result column="m1_name" property="moduleName"/>
+        <result column="m1_url" property="moduleUrl"/>
+    </resultMap>
+    <select id="listFirstLevelModules" resultMap="moduleMap2">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url
+        from sys_module m1 where m1.parent_module='01'
+    </select>
+<!--    public List<Module> listAllModules();-->
+    <select id="listAllModules" resultMap="moduleMap2">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url
+        from sys_module m1
+    </select>
+<!--    public List<Module> listModulesByParent(String parentModuleCode);-->
+    <select id="listModulesByParent"  resultMap="moduleMap2">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url
+        from sys_module m1 where m1.parent_module=#{parentModuleCode}
+    </select>
+<!--    public List<Module> listModulesByPage(@Param("start") int start,
+        @Param("limit") int limit);   // 分页-->
+    <select id="listModulesByPage" resultMap="moduleMap2">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url
+        from sys_module m1 limit #{start},#{limit}
+    </select>
+</mapper>

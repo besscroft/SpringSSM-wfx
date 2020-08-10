@@ -16,7 +16,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+        <div class="layui-logo">微分销平台管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">管理系统</a></li>
@@ -41,27 +41,19 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" id="jiuzhe" lay-filter="test">
-                <c:forEach items="${moduleList}" var="module" varStatus="xh">
-<%--                    <c:if test="${xh.index == 0}">--%>
-<%--                        <li class="layui-nav-item layui-nav-itemed">--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${xh.index != 0}">--%>
-<%--                        <li class="layui-nav-item">--%>
-<%--                    </c:if>--%>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;" onclick="check('${module.moduleCode}')">${module.moduleName}</a>
-                        <dl class="layui-nav-child" id="${module.moduleCode}">
-
-                        </dl>
-                    </li>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <c:forEach items="${modules}" var="m1">
+                    <c:forEach items="${m1.moduleList}" var="m2">
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;">${m2.moduleName}</a>
+                            <dl class="layui-nav-child">
+                                <c:forEach items="${m2.moduleList}" var="m3">
+                                    <dd><a href="${m3.moduleUrl}" target="main_self_frame">${m3.moduleName}</a></dd>
+                                </c:forEach>
+                            </dl>
+                        </li>
+                    </c:forEach>
                 </c:forEach>
-<%--                <li class="layui-nav-item">--%>
-<%--                    <a class="" href="javascript:;">所有商品</a>--%>
-<%--                    <dl class="layui-nav-child">--%>
-
-<%--                    </dl>--%>
-<%--                </li>--%>
 
             </ul>
         </div>
@@ -84,54 +76,9 @@
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
-        // var $ = layui.jquery;
-        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
-        element.render();
-        // element.render('nav', 'layui-nav-item');
-        // element.render('nav', 'test2');
-        // element.render('nav', 'test3');
+        var element = layui.element;
+
     });
-
-    function check(a){
-        var element = layui.element;
-        var moduleCode = a;
-        console.log(moduleCode);
-        $("#"+moduleCode).html("");
-        $.post("module/check",{parentModule:moduleCode},function(res){
-            console.log(res);
-            if (res.code == 200) {
-                var arr = res.data;
-                for(var i=0; i < arr.length; i++) {
-                    if (arr[i].leaf == 0) {
-                        var optionStr1 = "<dd><li class=\"layui-nav-item\" lay-filter=\"test2\"><a class=\"\" href=\"javascript:;\" target=\"main_self_frame\" onclick=\"check2('"+arr[i].moduleCode+"')\">"+arr[i].moduleName+"</a><dl class=\"layui-nav-child\" lay-filter=\"test3\" id=\""+arr[i].moduleCode+"\"><dd><a href=\"javascript:;\" target=\"main_self_frame\">三级菜单（伪代码）</a></dd></dl></li></dd>";
-                        $("#" + moduleCode).append(optionStr1);
-                        element.render(moduleCode);
-                    } else {
-                        var optionStr2 = "<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>";
-                        $("#" + moduleCode).append(optionStr2);
-                    }
-                }
-            }
-        },"json");
-    }
-
-    function check2(b){
-        var element = layui.element;
-        var moduleCode2 = b;
-        console.log(b);
-        $("#"+b).html("");
-        $.post("module/check",{parentModule:moduleCode2},function(res){
-            console.log(res);
-            if (res.code == 200) {
-                var arr = res.data;
-                for(var i=0; i < arr.length; i++) {
-                    $("#" + moduleCode2).append("<dd><a href=\""+arr[i].linkUrl+"\" target=\"main_self_frame\">"+arr[i].moduleName+"</a></dd>");
-                    element.render(moduleCode2);
-                    // console.log("完成");
-                }
-            }
-        },"json");
-    }
 </script>
 </body>
 </html>

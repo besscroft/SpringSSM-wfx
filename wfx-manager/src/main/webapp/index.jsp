@@ -45,7 +45,7 @@
             <div class="grid-demo">
 
                 <div class="layui-card">
-                    <div class="layui-card-header">登录</div>
+                    <div class="layui-card-header">登录</div>${tips}
                     <div class="layui-card-body">
 
                         <form class="layui-form" action="user/login" method="post" style="margin: auto;">

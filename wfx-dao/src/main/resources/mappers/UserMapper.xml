@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.bess.dao.UserDAO">
+<!--    public User checkLogin(@Param("account") String account,
+        @Param("password") String userPwd);  // 登录-->
+    <resultMap id="userMap" type="User">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="account" property="account"/>
+        <result column="password" property="userPwd"/>
+        <result column="remark" property="remark"/>
+        <result column="enabled" property="enabled"/>
+        <result column="login_time" property="loginTime"/>
+    </resultMap>
+    <select id="checkLogin" resultMap="userMap">
+        select user_id,user_name,account,password,remark,enabled,login_time
+        from user_info where account = #{account} and password = #{userPwd} and enabled=1
+    </select>
+</mapper>
