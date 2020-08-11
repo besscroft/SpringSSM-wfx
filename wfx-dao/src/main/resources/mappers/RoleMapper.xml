@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.bess.dao.RoleDAO">
+<!--    public int getCount();   // 查询所有角色信息-->
+    <resultMap id="roleMap" type="Role">
+        <id column="role_code" property="roleCode"/>
+        <id column="role_name" property="roleName"/>
+        <id column="role_desc" property="roleDesc"/>
+    </resultMap>
+    <select id="getCount" resultType="int">
+        select count(1)
+        from sys_role
+    </select>
+<!--    public List<Role> listRoleByPage(@Param("start") int start,
+        @Param("limit") int limit);   // 分页-->
+    <select id="listRoleByPage" resultSets="java.util.List" resultMap="roleMap">
+        select role_code,role_name,role_desc
+        from sys_role
+        order by role_order
+        limit #{start},#{limit}
+    </select>
+</mapper>
