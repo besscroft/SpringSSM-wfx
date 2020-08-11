@@ -3,6 +3,7 @@ package com.bess.controller;
 import com.bess.beans.Role;
 import com.bess.service.RoleService;
 import com.bess.vo.LayuiVO;
+import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,5 +32,16 @@ public class RoleController {
         List<Role> pageData = roleService.listRoleByPage(page, limit);
         LayuiVO vo = new LayuiVO(0, "success", count , pageData);
         return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public ResultVO deleteRole(String roleCode) {
+        boolean b = roleService.deleteRole(roleCode);
+        if(b){
+            return new ResultVO(0,"删除角色信息成功！",null);
+        }else{
+            return new ResultVO(1,"删除角色信息失败！",null );
+        }
     }
 }

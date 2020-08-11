@@ -22,4 +22,19 @@
         order by role_order
         limit #{start},#{limit}
     </select>
+<!--    public int deleteRole(String code); // 1.删除角色表中的角色-->
+    <delete id="deleteRole">
+        delete from sys_role
+        where role_code = #{roleCode}
+    </delete>
+<!--    public int deleteByUserRole(String code);   // 2.删除角色和用户关系表中的对应关系记录-->
+    <delete id="deleteByUserRole">
+        delete from sys_user_role
+        where role_id = #{roleCode}
+    </delete>
+<!--    public int deleteByModuleRole(String code); // 3.删除角色和菜单关系表中的对应关系记录-->
+    <delete id="deleteByModuleRole">
+        delete from sys_role_fun
+        where role_id = #{roleCode}
+    </delete>
 </mapper>
