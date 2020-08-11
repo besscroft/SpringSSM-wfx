@@ -5,6 +5,9 @@ import com.bess.beans.User;
 import com.bess.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,5 +39,20 @@ public class UserServiceImpl implements UserService {
     public List<User> listUserByPage(int page,int limit) {
         int start = (page-1)*limit;
         return userDAO.listUserByPage(start,limit);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean updateUser(String userId, String userName, String userPwd, String remark, String enabled) {
+        int i = userDAO.updateUser(userId, userName, userPwd, remark, enabled);
+        return i>0;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean deleteUser(String userId) {
+        int i = userDAO.deleteUser(userId);
+        int i1 = userDAO.deleteUserRole(userId);
+        return i>0 && i1>=0;
     }
 }

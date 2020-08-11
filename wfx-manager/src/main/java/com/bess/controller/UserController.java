@@ -5,6 +5,7 @@ import com.bess.beans.User;
 import com.bess.service.ModuleService;
 import com.bess.service.UserService;
 import com.bess.vo.LayuiVO;
+import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,11 +54,37 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("list")
+    @RequestMapping("/list")
     public LayuiVO listUser(int page, int limit) {
         List<User> users = userService.listUser();
         List<User> pageData = userService.listUserByPage(page, limit);
         LayuiVO vo = new LayuiVO(0, "success", users.size() , pageData);
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/update")
+    public ResultVO updateUser(User user) {
+        boolean b = userService.updateUser(user.getUserId(),user.getUserName(),user.getUserPwd(),user.getRemark(),user.getEnabled());
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"更新成功！",user);
+        } else {
+            vo = new ResultVO(1,"更新失败！",null);
+        }
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public ResultVO deleteUser(String userId) {
+        boolean b = userService.deleteUser(userId);
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"删除成功！",null);
+        } else {
+            vo = new ResultVO(1,"删除失败！",null);
+        }
         return vo;
     }
 }

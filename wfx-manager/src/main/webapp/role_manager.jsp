@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>角色信息管理</title>
     <base href="<%=request.getContextPath()%>/"/>
     <link rel="stylesheet" href="layui/css/layui.css" />
     <style type="text/css">
@@ -27,11 +27,13 @@
 <div class="layui-card" style="margin: 0.625rem 0.625rem 0.625rem 0.625rem;">
     <div class="layui-card-header">角色信息管理</div>
     <div class="layui-card-body">
-        <button type="button" class="layui-btn">添加用户角色</button>
+        <script type="text/html" id="toolbarDemo">
+            <input type="button" value="添加角色" class="layui-btn" lay-event="add"/>
+        </script>
         <table id="demo" lay-filter="test"></table>
 
         <script type="text/html" id="btnTpl">
-            <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" lay-event="del"/>
+            <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" lay-event="del" />
             <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" lay-event="update" />
         </script>
 
@@ -39,15 +41,15 @@
 </div>
 
 <div id="updateDiv" style="height: 400px;display: none; padding: 20px">
-    <p>
-        角色编号：<label style="font-weight: bold" id="rcode"></label>
-    </p>
-    <p>
-        角色名称：<input type="text" id="rname"/>
-    </p>
-    <p>
-        角色描述：<textarea id="rdesc"></textarea>
-    </p>
+    <div class="layui-form-item">
+        角色编号：<br><label class="layui-form-label" style="font-weight: bold" id="rcode"></label>
+    </div>
+    <div class="layui-form-item">
+        角色名称：<input type="text" id="rname" class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        角色描述：<textarea id="rdesc" class="layui-textarea"></textarea>
+    </div>
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -58,18 +60,19 @@
         var table = layui.table;
         //第一个实例
         table.render({
-            elem: '#demo'
-            ,height: 500
-            ,url: 'role/list' //数据接口
-            ,page: true //开启分页
-            ,cols: [[ //表头
+            elem: '#demo',
+            height: 500,
+            url: 'role/list', //数据接口
+            toolbar:"#toolbarDemo",
+            page: true, //开启分页
+            cols: [[ //表头
                 {field: 'roleCode', title: '角色编号', width:'25%', sort: true, fixed: 'left'},
                 {field: 'roleName', title: '角色名称', width:'25%'},
                 {field: 'roleDesc', title: '角色说明', width:'25%'},
                 {title: '操作',templet:"#btnTpl" , width:'25%',fixed:'right'}
-            ]]
-            ,limit:10
-            ,limits:[8,12,15]
+            ]],
+            limit:10,
+            limits:[8,12,15]
         });
 
         // 监听table的tool事件
@@ -103,6 +106,7 @@
                 var index = layer.open({
                     type:1,
                     content:$("#updateDiv"),
+                    area: '500px',
                     btn:['提交','取消'],
                     btn1:function () {
                         var rcode = obj.data.roleCode;
