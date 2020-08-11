@@ -41,6 +41,12 @@ public class RoleServiceImpl implements RoleService {
         int i = roleDAO.deleteRole(roleCode);
         int i1 = roleDAO.deleteByUserRole(roleCode);
         int i2 = roleDAO.deleteByModuleRole(roleCode);
-        return (i>0 && i1>0 && i2>0) || (i>0 && i2>0 || i1>=0);
+        return i>0 && i2>0 && i1>=0;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean updateRole(String roleCode, String roleName, String roleDesc) {
+        return roleDAO.updateRole(roleCode,roleName,roleDesc) > 0;
     }
 }

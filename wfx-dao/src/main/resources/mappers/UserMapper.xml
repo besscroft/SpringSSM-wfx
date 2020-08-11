@@ -30,4 +30,24 @@
         select user_id,user_name,account,password,remark,enabled,login_time
         from user_info
     </select>
+<!--    public int updateUser(@Param("userId") String userId,
+    @Param("userName") String userName,
+    @Param("userPwd") String userPwd,
+    @Param("remark") String remark,
+    @Param("enabled") String enabled);    // 更新用户信息-->
+    <update id="updateUser">
+        update user_info
+        set user_name = #{userName},password = #{userPwd},remark = #{remark},enabled = #{enabled}
+        where user_id = #{userId}
+    </update>
+<!--    public int deleteUser(@Param("userId") String userId);    // 1.先根据用户id删除用户-->
+    <delete id="deleteUser">
+        delete from user_info
+        where user_id = #{userId}
+    </delete>
+<!--    public int deleteUserRole(@Param("userId") String userId);  // 2.再根据用户id删除用户角色关系表的数据-->
+    <delete id="deleteUserRole">
+        delete from sys_user_role
+        where user_id = #{userId}
+    </delete>
 </mapper>

@@ -16,4 +16,7 @@ public interface RoleDAO {
     public int deleteRole(@Param("roleCode") String code); // 1.删除角色表中的角色
     public int deleteByUserRole(@Param("roleCode") String code);   // 2.删除角色和用户关系表中的对应关系记录
     public int deleteByModuleRole(@Param("roleCode") String code); // 3.删除角色和菜单关系表中的对应关系记录
+    public int updateRole(@Param("roleCode") String roleCode,
+                          @Param("roleName")String roleName,
+                          @Param("roleDesc")String roleDesc);   // 修改角色字段
 }
