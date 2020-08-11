@@ -7,7 +7,7 @@
 <!--    public User checkLogin(@Param("account") String account,
         @Param("password") String userPwd);  // 登录-->
     <resultMap id="userMap" type="User">
-        <result column="user_id" property="userId"/>
+        <id column="user_id" property="userId"/>
         <result column="user_name" property="userName"/>
         <result column="account" property="account"/>
         <result column="password" property="userPwd"/>
