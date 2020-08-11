@@ -37,4 +37,12 @@
         delete from sys_role_fun
         where role_id = #{roleCode}
     </delete>
+<!--    public int updateRole(@Param("roleCode") String roleCode,
+        @Param("roleName")String roleName,
+        @Param("roleDesc")String roleDesc);   // 修改角色字段-->
+    <update id="updateRole">
+        update sys_role set
+        role_name = #{roleName} , role_desc = #{roleDesc}
+        where role_code = #{roleCode}
+    </update>
 </mapper>

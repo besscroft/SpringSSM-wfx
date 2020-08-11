@@ -98,7 +98,7 @@
                 // 数据回显
                 $("#rcode").html(obj.data.roleCode);
                 $("#rname").val(obj.data.roleName);
-                $("#rdesc").html(obj.data.roleDesc);
+                $("#rdesc").text(obj.data.roleDesc);
                 // 执行修改
                 var index = layer.open({
                     type:1,
@@ -107,7 +107,9 @@
                     btn1:function () {
                         var rcode = obj.data.roleCode;
                         var rname = $("#rname").val();
-                        var rdesc = $("#rdesc").html();
+                        var rdesc = $("#rdesc").val();
+                        console.log(rname);
+                        console.log(rdesc);
                         // 提交到后台进行修改
                         $.post("role/update",{roleCode:rcode,roleName:rname,roleDesc:rdesc},function (res) {
                             if (res.code == 0) {

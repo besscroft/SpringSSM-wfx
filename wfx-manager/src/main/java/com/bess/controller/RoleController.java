@@ -44,4 +44,15 @@ public class RoleController {
             return new ResultVO(1,"删除角色信息失败！",null );
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/update")
+    public ResultVO updateRole(Role role) {
+        boolean b = roleService.updateRole(role.getRoleCode(), role.getRoleName(), role.getRoleDesc());
+        if(b){
+            return new ResultVO(0,"修改角色信息成功！",role);
+        }else{
+            return new ResultVO(1,"修改角色信息失败！",null );
+        }
+    }
 }

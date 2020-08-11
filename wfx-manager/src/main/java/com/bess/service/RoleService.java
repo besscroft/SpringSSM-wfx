@@ -13,4 +13,5 @@ public interface RoleService {
     public int getCount();   // 查询角色信息数量
     public List<Role> listRoleByPage(int page,int limit);   // 分页
     public boolean deleteRole(String roleCode); // 删除角色
+    public boolean updateRole(String roleCode,String roleName,String roleDesc);   // 修改角色字段
 }
