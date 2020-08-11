@@ -31,10 +31,23 @@
         <table id="demo" lay-filter="test"></table>
 
         <script type="text/html" id="btnTpl">
-            <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" onclick="doDel('{{d.moduleCode}}')"/>
-            <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" />
+            <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" lay-event="del"/>
+            <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" lay-event="update" />
         </script>
+
     </div>
+</div>
+
+<div id="updateDiv" style="height: 400px;display: none; padding: 20px">
+    <p>
+        角色编号：<label style="font-weight: bold" id="rcode"></label>
+    </p>
+    <p>
+        角色名称：<input type="text" id="rname"/>
+    </p>
+    <p>
+        角色描述：<textarea id="rdesc"></textarea>
+    </p>
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -58,6 +71,65 @@
             ,limit:10
             ,limits:[8,12,15]
         });
+
+        // 监听table的tool事件
+        table.on("tool(test)",function (obj) {
+            if (obj.event == 'del') {
+               // 执行删除
+               console.log(obj);    // 打印
+               // 删除确认提示
+               layer.confirm("你确定要删除这条角色信息吗？",function (index) {
+                   layer.close(index);  // 关闭弹出层
+                   var rid = obj.data.roleCode;
+                   $.post("role/delete",{roleCode:rid},function (res) {
+                       console.log(res);
+                       if (res.code == 0) {
+                           // 1.提示
+                           layer.msg(res.msg);
+                           // 2.将数据表格中对应的数据删除
+                           obj.del();
+                       } else {
+                           // 提示
+                           layer.msg(res.msg);
+                       }
+                   },"json");
+               })
+            } else if (obj.event == "update") {
+                // 数据回显
+                $("#rcode").html(obj.data.roleCode);
+                $("#rname").val(obj.data.roleName);
+                $("#rdesc").html(obj.data.roleDesc);
+                // 执行修改
+                var index = layer.open({
+                    type:1,
+                    content:$("#updateDiv"),
+                    btn:['提交','取消'],
+                    btn1:function () {
+                        var rcode = obj.data.roleCode;
+                        var rname = $("#rname").val();
+                        var rdesc = $("#rdesc").html();
+                        // 提交到后台进行修改
+                        $.post("role/update",{roleCode:rcode,roleName:rname,roleDesc:rdesc},function (res) {
+                            if (res.code == 0) {
+                                layer.msg(res.msg);
+                                obj.update(res.data);
+                            } else {
+                                layer.msg(res.msg);
+                            }
+                        },"json");
+                        layer.close(index);
+                    },
+                    btn2:function () {
+                        console.log("取消了！！！");
+                    }
+                });
+            }
+        });
+
+        // 监听table的toolbar事件
+        table.on("toolbar(test)",function (obj) {
+            console.log(obj);
+        })
     });
 </script>
 </body>

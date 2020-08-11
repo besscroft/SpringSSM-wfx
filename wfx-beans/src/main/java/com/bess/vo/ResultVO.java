@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ResultVO {
-    private String code;
+    private int code;
     private String flag;
     private Object data;
 }
