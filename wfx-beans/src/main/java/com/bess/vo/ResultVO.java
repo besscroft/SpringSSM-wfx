@@ -15,6 +15,6 @@ import lombok.ToString;
 @ToString
 public class ResultVO {
     private int code;
-    private String flag;
+    private String msg;
     private Object data;
 }

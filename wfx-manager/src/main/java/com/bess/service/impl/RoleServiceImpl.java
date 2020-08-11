@@ -41,6 +41,6 @@ public class RoleServiceImpl implements RoleService {
         int i = roleDAO.deleteRole(roleCode);
         int i1 = roleDAO.deleteByUserRole(roleCode);
         int i2 = roleDAO.deleteByModuleRole(roleCode);
-        return i>0 && i1>0 && i2>0;
+        return (i>0 && i1>0 && i2>0) || (i>0 && i2>0 || i1>=0);
     }
 }

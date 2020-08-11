@@ -39,7 +39,7 @@ public class RoleController {
     public ResultVO deleteRole(String roleCode) {
         boolean b = roleService.deleteRole(roleCode);
         if(b){
-            return new ResultVO(0,"删除角色信息成功！",null );
+            return new ResultVO(0,"删除角色信息成功！",null);
         }else{
             return new ResultVO(1,"删除角色信息失败！",null );
         }
