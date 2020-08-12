@@ -14,4 +14,5 @@ public interface RoleService {
     public List<Role> listRoleByPage(int page,int limit);   // 分页
     public boolean deleteRole(String roleCode); // 删除角色
     public boolean updateRole(String roleCode,String roleName,String roleDesc);   // 修改角色字段
+    public boolean insertRole(Role role);   // 新增角色
 }

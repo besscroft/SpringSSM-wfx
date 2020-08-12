@@ -52,6 +52,20 @@
     </div>
 </div>
 
+<div id="addDiv" style="height: 400px;display: none; padding: 20px">
+    <div class="layui-form-item">
+        角色编号：<input type="text" id="roleCode"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        角色名称：<input type="text" id="roleName"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        角色描述：<textarea id="roleDesc"></textarea>
+    </div>
+</div>
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="layui/layui.all.js"></script>
@@ -129,13 +143,85 @@
                         console.log("取消了！！！");
                     }
                 });
+            } else if(obj.event =="grantPermission"){
+                //为角色授予权限
+                var roleName = obj.data.roleName;
+                var rcode = obj.data.roleCode;
+                //1.请求权限数据（所有权限）
+                var authData = [];
+                $.get("module/listall",function(res){
+                    console.log(res);
+                    if(res.code==0){
+                        authData = res.data;
+                        //2.渲染权限树
+                        tree.render({
+                            elem: '#authTreeDiv',
+                            showCheckbox:true,
+                            data:authData,
+                            oncheck: function(obj){
+                                var mid = obj.data.id;          //10100601
+                                var s = obj.checked;        //false
+                                console.log(s);
+                                //ajax交互 ：  roleCode   mid   state  传递到服务器
+                                $.post("module/grant",{roleCode:rcode,moduleCode:mid,state:s},function(res){
+                                    console.log(res);
+                                },"json");
+                            }
+                        });
+                    }
+                },"json");
+
+                //3.弹窗显示
+                var index = layer.open({
+                    type:1,
+                    title:"["+roleName+"]角色授权",
+                    content:$("#authTreeDiv"),
+                    area:['400px','500px'],
+                    btn: ['确定'],
+                    btn1:function(){
+                        layer.close(index);
+                    }
+                });
             }
         });
 
-        // 监听table的toolbar事件
+        //监听table的toolbar事件
         table.on("toolbar(test)",function (obj) {
             console.log(obj);
-        })
+            if (obj.event=="add") {
+                var index = layer.open({
+                    type:1,
+                    title:"添加角色信息",
+                    content:$("#addDiv"),
+                    area:['400px','500px'],
+                    btn:['提交','取消'],
+                    btn1:function () {
+                        layer.close(index);
+                        // 获取输入的数据
+                        var dataObj = {};
+                        dataObj.roleCode = $("#roleCode").val();  $("#roleCode").val();
+                        dataObj.roleName = $("#roleName").val();  $("#roleName").val("");
+                        dataObj.roleDesc = $("#roleDesc").val();  $("#roleDesc").val("");
+                        //通过ajax将数据提交到控制器
+                        //ajax提交数据，可以提交json对象  --------------直接对象接收
+                        //也可以提交json格式字符串，（需要声明contentType:"application/json"）   --- @RequestBody
+                        $.ajax({
+                            url:"role/add",
+                            type:"post",
+                            contentType:"application/json",
+                            data:JSON.stringify(dataObj),
+                            success:function(res){
+                                if(res.code==0){
+                                    layer.msg(res.msg);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
 </script>
 </body>

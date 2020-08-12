@@ -19,4 +19,5 @@ public interface RoleDAO {
     public int updateRole(@Param("roleCode") String roleCode,
                           @Param("roleName")String roleName,
                           @Param("roleDesc")String roleDesc);   // 修改角色字段
+    public int insertRole(Role role);   // 新增角色
 }

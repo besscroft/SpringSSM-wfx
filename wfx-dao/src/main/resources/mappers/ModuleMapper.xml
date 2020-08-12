@@ -70,4 +70,57 @@
         select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url
         from sys_module m1 limit #{start},#{limit}
     </select>
+<!--    public int updateModule(@Param("moduleCode") String moduleCode,
+    @Param("moduleName") String moduleName,
+    @Param("moduleUrl") String moduleUrl);  // 修改菜单-->
+    <update id="updateModule">
+        update sys_module
+        set module_name = #{moduleName},link_url = #{moduleUrl}
+        where module_code = #{moduleCode}
+    </update>
+<!--    public int deleteModule(@Param("moduleCode") String moduleCode);    // 删除菜单-->
+    <delete id="deleteModule">
+        delete from sys_module
+        where module_code = #{moduleCode}
+    </delete>
+<!--    public List<TreeNode> listTreeModules();  // 查询所有权限(所有菜单信息）-->
+    <resultMap id="treeMap" type="TreeNode">
+        <id column="m1_code" property="id"/>
+        <result column="m1_name" property="title"/>
+        <collection property="children" ofType="TreeNode">
+            <result column="m2_code" property="id"/>
+            <result column="m2_name" property="title"/>
+            <collection property="children" ofType="TreeNode">
+                <result column="m3_code" property="id"/>
+                <result column="m3_name" property="title"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="listTreeModules" resultSets="java.util.List" resultMap="treeMap">
+        select m1.module_code m1_code,m1.module_name m1_name, m1.link_url m1_url,
+               m2.module_code m2_code,m2.module_name m2_name, m2.link_url m2_url,
+               m3.module_code m3_code,m3.module_name m3_name, m3.link_url m3_url
+        from sys_module m1 INNER JOIN sys_module m2 INNER JOIN sys_module m3
+        on m1.module_code=m2.parent_module and m3.parent_module=m2.module_code
+        where m1.parent_module='01'
+    </select>
+<!--    public int insertRoleModule(@Param("rcode") String roleCode,
+        @Param("mcode") String moduleCode); // 授权-->
+    <insert id="insertRoleModule">
+        insert  into sys_role_fun(role_id,module_id) values(#{rcode},#{mcode})
+    </insert>
+<!--    public int deleteRoleModule(@Param("rcode") String roleCode,
+        @Param("mcode") String moduleCode);  // 删除权限-->
+    <delete id="deleteRoleModule">
+        delete from sys_role_fun
+        where module_id = #{moduleCode} and role_id = #{roleCode}
+    </delete>
+<!--    public List<String> listMidByTopId(String topid);   // 查询父权限-->
+    <select id="listMidByTopId" resultSets="java.util.List" resultType="String">
+        select module_code from sys_module where parent_module in (select module_code from sys_module where parent_module=#{topid})
+    </select>
+<!--    public List<String> listMidBySecondId(String secondId); // 查询子权限-->
+    <select id="listMidBySecondId" resultSets="java.util.List" resultType="String">
+        select module_code from sys_module where parent_module =#{secondId}
+    </select>
 </mapper>
