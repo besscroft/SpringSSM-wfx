@@ -49,9 +49,10 @@
         功能名称：<input type="text" id="moduleName" class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        请求路径：<textarea id="linkUrl" class="layui-textarea"></textarea>
+        请求路径：<textarea id="moduleUrl" class="layui-textarea"></textarea>
     </div>
 </div>
+
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
@@ -102,7 +103,7 @@
                 // 数据回显
                 $("#moduleCode").html(obj.data.moduleCode);
                 $("#moduleName").val(obj.data.moduleName);
-                $("#linkUrl").text(obj.data.linkUrl);
+                $("#moduleUrl").val(obj.data.moduleUrl);
                 // 执行修改
                 var index = layer.open({
                     type:1,
@@ -112,12 +113,12 @@
                     btn1:function () {
                         var moduleCode = obj.data.moduleCode;
                         var moduleName = $("#moduleName").val();
-                        var linkUrl = $("#linkUrl").val();
+                        var moduleUrl = $("#moduleUrl").val();
                         console.log(moduleCode);
                         console.log(moduleName);
-                        console.log(linkUrl);
+                        console.log(moduleUrl);
                         // 提交到后台进行修改
-                        $.post("module/update",{moduleCode:moduleCode,moduleName:moduleName,linkUrl:linkUrl},function (res) {
+                        $.post("module/update",{moduleCode:moduleCode,moduleName:moduleName,moduleUrl:moduleUrl},function (res) {
                             if (res.code == 0) {
                                 layer.msg(res.msg);
                                 obj.update(res.data);
@@ -133,11 +134,11 @@
                 });
             }
         });
+
+
+
     });
 
-    function doDel(code){
-        console.log("delete:"+code);
-    }
 </script>
 </body>
 </html>

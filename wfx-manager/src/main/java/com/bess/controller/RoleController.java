@@ -5,6 +5,7 @@ import com.bess.service.RoleService;
 import com.bess.vo.LayuiVO;
 import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,6 +39,7 @@ public class RoleController {
     @RequestMapping("/delete")
     public ResultVO deleteRole(String roleCode) {
         boolean b = roleService.deleteRole(roleCode);
+        System.out.println(b);
         if(b){
             return new ResultVO(0,"删除角色信息成功！",null);
         }else{
@@ -53,6 +55,18 @@ public class RoleController {
             return new ResultVO(0,"修改角色信息成功！",role);
         }else{
             return new ResultVO(1,"修改角色信息失败！",null );
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/add")
+    //如果前端提交的是据是JSON字符串则需要添加@RequestBody进行解析
+    public ResultVO add(@RequestBody Role role){
+        boolean b = roleService.insertRole(role);
+        if(b){
+            return new ResultVO(0,"角色信息添加成功！",role);
+        }else{
+            return new ResultVO(1,"角色信息添加失败！",null);
         }
     }
 }

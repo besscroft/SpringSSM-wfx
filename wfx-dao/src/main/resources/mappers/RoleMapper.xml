@@ -45,4 +45,9 @@
         role_name = #{roleName} , role_desc = #{roleDesc}
         where role_code = #{roleCode}
     </update>
+<!--    public int insertRole(Role role);-->
+    <insert id="insertRole">
+    insert into sys_role(role_code,role_name,role_desc)
+    values(#{roleCode},#{roleName},#{roleDesc})
+    </insert>
 </mapper>

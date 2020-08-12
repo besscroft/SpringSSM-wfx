@@ -37,4 +37,48 @@ public class ModuleController {
         LayuiVO vo = new LayuiVO(0, "success", modules.size() , pageData);
         return vo;
     }
+
+    @ResponseBody
+    @RequestMapping("/update")
+    public ResultVO updateModule(Module module) {
+        boolean b = moduleService.updateModule(module.getModuleCode(),module.getModuleName(),module.getModuleUrl());
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"更新成功！",module);
+        } else {
+            vo = new ResultVO(1,"更新失败！",null);
+        }
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public ResultVO deleteModule(String moduleCode) {
+        boolean b = moduleService.deleteModule(moduleCode);
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"删除成功！",null);
+        } else {
+            vo = new ResultVO(1,"删除失败！",null);
+        }
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/grant")
+    public ResultVO grant(String roleCode,String moduleCode,boolean state){
+        int i = 0;
+        if(state){
+            System.out.println("授权");
+            //授权
+            i = moduleService.grantPermission(roleCode,moduleCode);
+        }else{
+            //撤销权限
+            System.out.println("撤销权限");
+            i = moduleService.revokePermission(roleCode,moduleCode);
+        }
+
+        String str = (state?"授权":"撤销权限")+(i>0?"成功":"失败");
+        return  new ResultVO(0,str,null);
+    }
 }
