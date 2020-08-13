@@ -50,4 +50,9 @@
         delete from sys_user_role
         where user_id = #{userId}
     </delete>
+<!--    public int insertUser(User user);   // 添加用户-->
+    <insert id="insertUser">
+        insert into user_info(user_id,user_name,account,password,remark,enabled)
+        values(#{userId},#{userName},#{account},#{userPwd},#{remark},#{enabled});
+    </insert>
 </mapper>

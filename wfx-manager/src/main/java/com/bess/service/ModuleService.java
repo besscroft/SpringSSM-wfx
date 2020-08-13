@@ -1,6 +1,7 @@
 package com.bess.service;
 
 import com.bess.beans.Module;
+import com.bess.beans.TreeNode;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface ModuleService {
     public int secondLevel(String roleCode, String moduleCode); //二级权限授权
     public int grantPermission(String roleCode,String moduleCode);  // 授权
     public int revokePermission(String roleCode,String moduleCode); // 删除权限
+
+    public List<TreeNode> listTreeModules();  // 查询所有权限(所有菜单信息）
 }

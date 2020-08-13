@@ -7,6 +7,7 @@ import com.bess.service.UserService;
 import com.bess.vo.LayuiVO;
 import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,6 +85,21 @@ public class UserController {
             vo = new ResultVO(0,"删除成功！",null);
         } else {
             vo = new ResultVO(1,"删除失败！",null);
+        }
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/add")
+    public ResultVO insertUser(@RequestBody User user) {
+        System.out.println(user);
+        user.setEnabled("0");
+        boolean b = userService.insertUser(user);
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"添加成功！",null);
+        } else {
+            vo = new ResultVO(1,"添加失败！",null);
         }
         return vo;
     }

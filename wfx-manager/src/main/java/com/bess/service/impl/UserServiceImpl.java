@@ -55,4 +55,10 @@ public class UserServiceImpl implements UserService {
         int i1 = userDAO.deleteUserRole(userId);
         return i>0 && i1>=0;
     }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean insertUser(User user) {
+        return userDAO.insertUser(user) > 0;
+    }
 }

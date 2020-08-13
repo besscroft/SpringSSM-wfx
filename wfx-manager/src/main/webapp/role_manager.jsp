@@ -11,7 +11,7 @@
 <head>
     <title>角色信息管理</title>
     <base href="<%=request.getContextPath()%>/"/>
-    <link rel="stylesheet" href="layui/css/layui.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" media="all" />
     <style type="text/css">
         body{
             background-image: url(img/background.jpg);
@@ -35,6 +35,7 @@
         <script type="text/html" id="btnTpl">
             <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" lay-event="del" />
             <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" lay-event="update" />
+            <input type="button" class="layui-btn layui-btn-sm" value="授权" lay-event="grantPermission"/>
         </script>
 
     </div>
@@ -65,13 +66,16 @@
         角色描述：<textarea id="roleDesc"></textarea>
     </div>
 </div>
+<div id="authTreeDiv" style="display: none;"></div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="layui/layui.all.js"></script>
 <script type="text/javascript">
-    layui.use('table', function(){
+    layui.use(['table','layer','tree'], function(){
         var table = layui.table;
+        var layer = layui.layer;
+        var tree = layui.tree;
         //第一个实例
         table.render({
             elem: '#demo',
@@ -155,13 +159,12 @@
                         authData = res.data;
                         //2.渲染权限树
                         tree.render({
-                            elem: '#authTreeDiv',
-                            showCheckbox:true,
-                            data:authData,
-                            oncheck: function(obj){
+                            elem: '#authTreeDiv'
+                            ,showCheckbox:true
+                            ,data:authData
+                            ,oncheck: function(obj){
                                 var mid = obj.data.id;          //10100601
                                 var s = obj.checked;        //false
-                                console.log(s);
                                 //ajax交互 ：  roleCode   mid   state  传递到服务器
                                 $.post("module/grant",{roleCode:rcode,moduleCode:mid,state:s},function(res){
                                     console.log(res);
@@ -173,15 +176,16 @@
 
                 //3.弹窗显示
                 var index = layer.open({
-                    type:1,
-                    title:"["+roleName+"]角色授权",
-                    content:$("#authTreeDiv"),
-                    area:['400px','500px'],
-                    btn: ['确定'],
-                    btn1:function(){
+                    type:1
+                    ,title:"["+roleName+"]角色授权"
+                    ,content:$("#authTreeDiv")
+                    ,area:['400px','500px']
+                    ,btn: ['确定']
+                    ,btn1:function(){
                         layer.close(index);
                     }
                 });
+
             }
         });
 

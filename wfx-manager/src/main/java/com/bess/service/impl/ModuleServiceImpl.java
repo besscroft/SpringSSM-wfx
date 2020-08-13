@@ -131,4 +131,9 @@ public class ModuleServiceImpl implements ModuleService {
     public int revokePermission(String roleCode, String moduleCode) {
         return moduleDAO.deleteRoleModule(roleCode, moduleCode);
     }
+
+    @Override
+    public List<TreeNode> listTreeModules() {
+        return moduleDAO.listTreeModules();
+    }
 }

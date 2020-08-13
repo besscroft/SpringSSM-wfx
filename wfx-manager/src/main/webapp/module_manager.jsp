@@ -28,7 +28,7 @@
     <div class="layui-card-header">菜单信息管理</div>
     <div class="layui-card-body">
         <script type="text/html" id="toolbarDemo">
-            <input type="button" value="菜单角色" class="layui-btn" lay-event="add"/>
+            <input type="button" value="添加菜单" class="layui-btn" lay-event="add"/>
         </script>
         <table id="demo" lay-filter="test"></table>
 
@@ -83,7 +83,7 @@
                 // 执行删除
                 console.log(obj);    // 打印
                 // 删除确认提示
-                layer.confirm("你确定要删除这条角色信息吗？",function (index) {
+                layer.confirm("你确定要删除这条权限信息吗？",function (index) {
                     layer.close(index);  // 关闭弹出层
                     var moduleCode = obj.data.moduleCode;
                     $.post("module/delete",{moduleCode:moduleCode},function (res) {
