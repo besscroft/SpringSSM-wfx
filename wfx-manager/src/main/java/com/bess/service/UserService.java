@@ -19,4 +19,5 @@ public interface UserService {
     public boolean deleteUser(String userId);   // 删除用户
     public boolean insertUser(User user);   // 添加用户
     public boolean addUserRole(String userId,String roleId);    // 给用户添加角色
+    public boolean updateUserRole(String userId,String roleId);  // 更新角色信息
 }

@@ -61,4 +61,11 @@
         insert into sys_user_role(user_id,role_id)
         values(#{userId},#{roleId});
     </insert>
+<!--    public int updateUserRole(@Param("userId") String userId,
+        @Param("roleId") String roleId);  // 更新角色信息-->
+    <update id="updateUserRole">
+        update sys_user_role
+        set role_id = #{roleId}
+        where user_id = #{userId}
+    </update>
 </mapper>

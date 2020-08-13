@@ -95,8 +95,9 @@ public class UserController {
         System.out.println(user);
         user.setEnabled("0");
         boolean b = userService.insertUser(user);
+        boolean b1 = userService.addUserRole(user.getUserId(), "");
         ResultVO vo;
-        if (b) {
+        if (b && b1) {
             vo = new ResultVO(0,"添加成功！",null);
         } else {
             vo = new ResultVO(1,"添加失败！",null);
@@ -109,7 +110,7 @@ public class UserController {
     public ResultVO addUserRole(String userId,String roleId) {
         System.out.println(userId);
         System.out.println(roleId);
-        boolean b = userService.addUserRole(userId, roleId);
+        boolean b = userService.updateUserRole(userId, roleId);
         ResultVO vo;
         if (b) {
             vo = new ResultVO(0,"授权成功！",null);

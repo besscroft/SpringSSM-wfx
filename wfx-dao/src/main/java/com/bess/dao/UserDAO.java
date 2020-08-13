@@ -26,4 +26,6 @@ public interface UserDAO {
     public int insertUser(User user);   // 添加用户
     public int addUserRole(@Param("userId") String userId,
                            @Param("roleId") String roleId);    // 给用户添加角色
+    public int updateUserRole(@Param("userId") String userId,
+                              @Param("roleId") String roleId);  // 更新角色信息
 }
