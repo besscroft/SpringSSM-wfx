@@ -157,12 +157,20 @@
                     console.log(res);
                     if(res.code==0){
                         authData = res.data;
+                        // 查询已有权限
+                        $.post("role/listYes",{roleId:rcode},function (res) {
+                            console.log(res);
+                            var modules = res.data;
+                            console.log(modules);
+                            tree.setChecked('moduleCode', modules);
+                        })
                         //2.渲染权限树
                         tree.render({
-                            elem: '#authTreeDiv'
-                            ,showCheckbox:true
-                            ,data:authData
-                            ,oncheck: function(obj){
+                            elem: '#authTreeDiv',
+                            showCheckbox:true,
+                            data:authData,
+                            id: 'moduleCode',
+                            oncheck: function(obj){
                                 var mid = obj.data.id;          //10100601
                                 var s = obj.checked;        //false
                                 //ajax交互 ：  roleCode   mid   state  传递到服务器

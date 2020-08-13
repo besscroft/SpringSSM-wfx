@@ -16,4 +16,5 @@ public interface RoleService {
     public boolean deleteRole(String roleCode); // 删除角色
     public boolean updateRole(String roleCode,String roleName,String roleDesc);   // 修改角色字段
     public boolean insertRole(Role role);   // 新增角色
+    public List<String> listYes(String roleId); // 查询角色菜单关系表中已有的权限
 }

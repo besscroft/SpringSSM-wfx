@@ -60,4 +60,9 @@ public class RoleServiceImpl implements RoleService {
     public boolean insertRole(Role role) {
         return roleDAO.insertRole(role) > 0;
     }
+
+    @Override
+    public List<String> listYes(String roleId) {
+        return roleDAO.listYes(roleId);
+    }
 }

@@ -55,4 +55,9 @@
         select role_code,role_name,role_desc
         from sys_role
     </select>
+<!--    public List<String> listYes(String roleId); // 查询角色菜单关系表中已有的权限-->
+    <select id="listYes" resultType="String">
+        select module_id from sys_role_fun
+        where role_id = #{roleId}
+    </select>
 </mapper>
