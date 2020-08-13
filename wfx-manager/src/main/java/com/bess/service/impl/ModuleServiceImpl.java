@@ -136,4 +136,10 @@ public class ModuleServiceImpl implements ModuleService {
     public List<TreeNode> listTreeModules() {
         return moduleDAO.listTreeModules();
     }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean insertModule(String moduleId,String moduleCode,String moduleName,String moduleUrl) {
+        return moduleDAO.insertModule(moduleId,moduleCode,moduleName,moduleUrl) > 0;
+    }
 }
