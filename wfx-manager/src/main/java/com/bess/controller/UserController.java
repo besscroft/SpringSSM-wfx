@@ -65,7 +65,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public ResultVO updateUser(User user) {
+    public ResultVO updateUser(@RequestBody User user) {
         boolean b = userService.updateUser(user.getUserId(),user.getUserName(),user.getUserPwd(),user.getRemark(),user.getEnabled());
         ResultVO vo;
         if (b) {

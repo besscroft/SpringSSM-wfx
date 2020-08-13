@@ -4,6 +4,9 @@ import com.bess.beans.Customer;
 import com.bess.dao.CustomerDAO;
 import com.bess.service.CustomerService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,5 +33,23 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> listCustomer(int page, int limit) {
         int start = (page-1)*limit;
         return customerDAO.listCustomer(start,limit);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean updateCustomer(Customer customer) {
+        return customerDAO.updateCustomer(customer) > 0;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean insertCustomer(Customer customer) {
+        return customerDAO.insertCustomer(customer) > 0;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public boolean deleteCustomer(String customerId) {
+        return customerDAO.deleteCustomer(customerId) > 0;
     }
 }
