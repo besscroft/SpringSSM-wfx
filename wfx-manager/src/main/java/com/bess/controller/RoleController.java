@@ -72,12 +72,23 @@ public class RoleController {
     @ResponseBody
     @RequestMapping("/add")
     //如果前端提交的是据是JSON字符串则需要添加@RequestBody进行解析
-    public ResultVO add(@RequestBody Role role){
+    public ResultVO add(@RequestBody Role role) {
         boolean b = roleService.insertRole(role);
         if(b){
             return new ResultVO(0,"角色信息添加成功！",role);
         }else{
             return new ResultVO(1,"角色信息添加失败！",null);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/listYes")
+    public ResultVO listYes(String roleId) {
+        List<String> modules = roleService.listYes(roleId);
+        if(modules != null){
+            return new ResultVO(0,"查询成功！",modules);
+        }else{
+            return new ResultVO(1,"查询失败！",null);
         }
     }
 }

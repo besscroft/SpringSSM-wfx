@@ -21,4 +21,5 @@ public interface RoleDAO {
                           @Param("roleName")String roleName,
                           @Param("roleDesc")String roleDesc);   // 修改角色字段
     public int insertRole(Role role);   // 新增角色
+    public List<String> listYes(String roleId); // 查询角色菜单关系表中已有的权限
 }
