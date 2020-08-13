@@ -65,7 +65,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public ResultVO updateUser(User user) {
+    public ResultVO updateUser(@RequestBody User user) {
         boolean b = userService.updateUser(user.getUserId(),user.getUserName(),user.getUserPwd(),user.getRemark(),user.getEnabled());
         ResultVO vo;
         if (b) {
@@ -100,6 +100,21 @@ public class UserController {
             vo = new ResultVO(0,"添加成功！",null);
         } else {
             vo = new ResultVO(1,"添加失败！",null);
+        }
+        return vo;
+    }
+
+    @ResponseBody
+    @RequestMapping("/grant")
+    public ResultVO addUserRole(String userId,String roleId) {
+        System.out.println(userId);
+        System.out.println(roleId);
+        boolean b = userService.addUserRole(userId, roleId);
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"授权成功！",null);
+        } else {
+            vo = new ResultVO(1,"授权失败！",null);
         }
         return vo;
     }

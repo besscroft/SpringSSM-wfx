@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface RoleDAO {
     public int getCount();   // 查询角色信息数量
+    public List<Role> listRole();   // 不分页，直接查询所有的角色信息
     public List<Role> listRoleByPage(@Param("start") int start,
                                      @Param("limit") int limit);   // 分页
     public int deleteRole(@Param("roleCode") String code); // 1.删除角色表中的角色

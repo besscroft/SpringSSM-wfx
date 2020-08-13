@@ -36,6 +36,17 @@ public class RoleController {
     }
 
     @ResponseBody
+    @RequestMapping("/listAll")
+    public ResultVO listRole() {
+        List<Role> roles = roleService.listRole();
+        if(roles != null){
+            return new ResultVO(0,"sussces",roles);
+        }else{
+            return new ResultVO(1,"fail",null );
+        }
+    }
+
+    @ResponseBody
     @RequestMapping("/delete")
     public ResultVO deleteRole(String roleCode) {
         boolean b = roleService.deleteRole(roleCode);
@@ -49,7 +60,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public ResultVO updateRole(Role role) {
+    public ResultVO updateRole(@RequestBody Role role) {
         boolean b = roleService.updateRole(role.getRoleCode(), role.getRoleName(), role.getRoleDesc());
         if(b){
             return new ResultVO(0,"修改角色信息成功！",role);

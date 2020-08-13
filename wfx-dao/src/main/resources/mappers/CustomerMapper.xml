@@ -30,4 +30,20 @@
         from wxb_customer
         limit #{start},#{limit}
     </select>
+<!--    public int updateCustomer(Customer customer);   // 更新商户信息-->
+    <update id="updateCustomer">
+        update wxb_customer
+        set  customer_name = #{customerName},QQ = #{qq},wxh = #{wxh},phone = #{phone},login_name = #{loginName}
+        where customer_id = #{customerId}
+    </update>
+<!--    public int insertCustomer(Customer customer);   // 添加商户-->
+    <insert id="insertCustomer">
+        insert into wxb_customer(customer_id,customer_name,QQ,wxh,phone,createtime,login_name,login_pwd,state,level,acc_balance,update_time,website)
+        values(#{customerId},#{customerName},#{qq},#{wxh},#{phone},#{createTime},#{loginName},#{loginPwd},#{state},#{level},#{accBalance},#{updateTime},#{website})
+    </insert>
+<!--    public int deleteCustomer(String customerId);   // 删除商户-->
+    <delete id="deleteCustomer">
+        delete from wxb_customer
+        where customer_id = #{customerId}
+    </delete>
 </mapper>

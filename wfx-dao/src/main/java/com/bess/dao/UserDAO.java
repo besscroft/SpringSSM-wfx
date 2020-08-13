@@ -24,4 +24,6 @@ public interface UserDAO {
     public int deleteUser(@Param("userId") String userId);    // 1.先根据用户id删除用户
     public int deleteUserRole(@Param("userId") String userId);  // 2.再根据用户id删除用户角色关系表的数据
     public int insertUser(User user);   // 添加用户
+    public int addUserRole(@Param("userId") String userId,
+                           @Param("roleId") String roleId);    // 给用户添加角色
 }

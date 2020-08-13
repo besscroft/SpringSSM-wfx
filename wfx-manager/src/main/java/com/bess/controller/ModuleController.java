@@ -42,7 +42,7 @@ public class ModuleController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public ResultVO updateModule(Module module) {
+    public ResultVO updateModule(@RequestBody Module module) {
         boolean b = moduleService.updateModule(module.getModuleCode(),module.getModuleName(),module.getModuleUrl());
         ResultVO vo;
         if (b) {
