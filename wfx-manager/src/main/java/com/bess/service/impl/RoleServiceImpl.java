@@ -30,6 +30,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> listRole() {
+        return roleDAO.listRole();
+    }
+
+    @Override
     public List<Role> listRoleByPage(int page, int limit) {
         int start = (page-1)*limit;
         return roleDAO.listRoleByPage(start,limit);
@@ -51,6 +56,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
     public boolean insertRole(Role role) {
         return roleDAO.insertRole(role) > 0;
     }

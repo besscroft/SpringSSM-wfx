@@ -36,6 +36,7 @@
         <script type="text/html" id="btnTpl">
             <input type="button" class="layui-btn layui-btn-warm layui-btn-sm" value="删除" lay-event="del" />
             <input type="button" class="layui-btn layui-btn-primary layui-btn-sm" value="修改" lay-event="update" />
+            <input type="button" class="layui-btn layui-btn-sm" value="授权" lay-event="grantPermission"/>
         </script>
 
     </div>
@@ -84,6 +85,21 @@
     <br/>
     <div class="layui-form-item">
         备注：<input type="text" id="remarkAdd"/>
+    </div>
+</div>
+
+<div id="authAddDiv" style="height: 400px;display: none; padding: 20px">
+    <div class="layui-form-item">
+        用户编号：<br><label class="layui-form-label" style="font-weight: bold" id="userIdAuth"></label>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择角色</label>
+        <div class="layui-input-block">
+            <select id="roleId" name="enabled" lay-verify="required">
+
+            </select>
+        </div>
     </div>
 </div>
 
@@ -174,6 +190,49 @@
                         console.log("取消了！！！");
                     }
                 });
+            } else if(obj.event =="grantPermission"){
+                $("#userIdAuth").html(obj.data.userId);
+                //为用户授予角色
+                var userId = obj.data.userId;
+                var userName = obj.data.userName;
+                //1.请求权限数据（所有权限）
+                var authData = [];
+                $.get("role/listAll",function(res){
+                    console.log(res);
+                    if(res.code==0){
+                        authData = res.data;
+                        $("#roleId").append().html("");
+                        console.log(authData);
+                        console.log(authData.length);
+                        for (var i=0; i < authData.length; i++) {
+                            var optionStr = "<option value=\""+authData[i].roleCode+"\">"+authData[i].roleName+"</option>";
+                            $("#roleId").append(optionStr);
+                        }
+                    }
+                },"json");
+
+                var index = layer.open({
+                    type:1,
+                    title:"["+userName+"]用户授权",
+                    content:$("#authAddDiv"),
+                    area:['400px','500px'],
+                    btn:['提交','取消'],
+                    btn1:function(){
+                        var roleId = $("#roleId").val();
+                        console.log(userId);
+                        console.log(roleId);
+                        // 提交到后台进行授权
+                        $.post("user/grant",{userId:userId,roleId:roleId},function (res) {
+                            if (res.code == 0) {
+                                layer.msg(res.msg);
+                            } else {
+                                layer.msg(res.msg);
+                            }
+                        },"json");
+                        layer.close(index);
+                    }
+                });
+
             }
         });
 

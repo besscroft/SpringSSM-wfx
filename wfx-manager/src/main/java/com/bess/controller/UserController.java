@@ -103,4 +103,19 @@ public class UserController {
         }
         return vo;
     }
+
+    @ResponseBody
+    @RequestMapping("/grant")
+    public ResultVO addUserRole(String userId,String roleId) {
+        System.out.println(userId);
+        System.out.println(roleId);
+        boolean b = userService.addUserRole(userId, roleId);
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"授权成功！",null);
+        } else {
+            vo = new ResultVO(1,"授权失败！",null);
+        }
+        return vo;
+    }
 }

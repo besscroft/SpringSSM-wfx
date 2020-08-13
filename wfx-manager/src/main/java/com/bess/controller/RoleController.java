@@ -36,6 +36,17 @@ public class RoleController {
     }
 
     @ResponseBody
+    @RequestMapping("/listAll")
+    public ResultVO listRole() {
+        List<Role> roles = roleService.listRole();
+        if(roles != null){
+            return new ResultVO(0,"sussces",roles);
+        }else{
+            return new ResultVO(1,"fail",null );
+        }
+    }
+
+    @ResponseBody
     @RequestMapping("/delete")
     public ResultVO deleteRole(String roleCode) {
         boolean b = roleService.deleteRole(roleCode);

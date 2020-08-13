@@ -55,4 +55,10 @@
         insert into user_info(user_id,user_name,account,password,remark,enabled)
         values(#{userId},#{userName},#{account},#{userPwd},#{remark},#{enabled});
     </insert>
+<!--    public int addUserRole(@Param("userId") String userId,
+        @Param("roleId") String roleId);    // 给用户添加角色-->
+    <insert id="addUserRole">
+        insert into sys_user_role(user_id,role_id)
+        values(#{userId},#{roleId});
+    </insert>
 </mapper>

@@ -61,4 +61,9 @@ public class UserServiceImpl implements UserService {
     public boolean insertUser(User user) {
         return userDAO.insertUser(user) > 0;
     }
+
+    @Override
+    public boolean addUserRole(String userId, String roleId) {
+        return userDAO.addUserRole(userId,roleId) > 0;
+    }
 }

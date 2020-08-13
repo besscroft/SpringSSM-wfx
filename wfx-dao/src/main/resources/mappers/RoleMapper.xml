@@ -50,4 +50,9 @@
     insert into sys_role(role_code,role_name,role_desc)
     values(#{roleCode},#{roleName},#{roleDesc})
     </insert>
+<!--    public List<Role> listRole();   // 不分页，直接查询所有的角色信息-->
+    <select id="listRole" resultSets="java.util.List" resultMap="roleMap">
+        select role_code,role_name,role_desc
+        from sys_role
+    </select>
 </mapper>
