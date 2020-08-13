@@ -123,4 +123,12 @@
     <select id="listMidBySecondId" resultSets="java.util.List" resultType="String">
         select module_code from sys_module where parent_module =#{secondId}
     </select>
+<!--    public int insertModule(@Param("moduleId") String moduleId,
+    @Param("moduleCode") String moduleCode,
+    @Param("moduleName") String moduleName,
+    @Param("moduleUrl") String moduleUrl); // 添加菜单-->
+    <insert id="insertModule">
+        insert into sys_module(module_id,module_code,module_name,link_url)
+        values(#{moduleId},#{moduleCode},#{moduleName},#{moduleUrl})
+    </insert>
 </mapper>

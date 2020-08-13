@@ -28,4 +28,5 @@ public interface ModuleService {
     public int revokePermission(String roleCode,String moduleCode); // 删除权限
 
     public List<TreeNode> listTreeModules();  // 查询所有权限(所有菜单信息）
+    public boolean insertModule(String moduleId,String moduleCode,String moduleName,String moduleUrl); // 添加菜单
 }

@@ -36,4 +36,8 @@ public interface ModuleDAO {
     public List<String> listMidByTopId(String topid);   // 查询父权限
 
     public List<String> listMidBySecondId(String secondId); // 查询子权限
+    public int insertModule(@Param("moduleId") String moduleId,
+                            @Param("moduleCode") String moduleCode,
+                            @Param("moduleName") String moduleName,
+                            @Param("moduleUrl") String moduleUrl); // 添加菜单
 }

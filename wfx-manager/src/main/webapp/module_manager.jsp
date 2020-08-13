@@ -53,6 +53,20 @@
     </div>
 </div>
 
+<div id="addDiv" style="height: 400px;display: none; padding: 20px">
+    <div class="layui-form-item">
+        菜单编码：<input type="text" id="moduleCodeAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        功能名称：<input type="text" id="moduleNameAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        请求路径：<input type="text" id="moduleUrlAdd"/>
+    </div>
+    <br/>
+</div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
@@ -135,7 +149,44 @@
             }
         });
 
-
+        //监听table的toolbar事件
+        table.on("toolbar(test)",function (obj) {
+            console.log(obj);
+            if (obj.event=="add") {
+                var index = layer.open({
+                    type:1,
+                    title:"添加菜单",
+                    content:$("#addDiv"),
+                    area:['400px','500px'],
+                    btn:['提交','取消'],
+                    btn1:function () {
+                        layer.close(index);
+                        // 获取输入的数据
+                        var dataObj = {};
+                        dataObj.moduleCode = $("#moduleCodeAdd").val();  $("#moduleCodeAdd").val("");
+                        dataObj.moduleName = $("#moduleNameAdd").val();  $("#moduleNameAdd").val("");
+                        dataObj.moduleUrl = $("#moduleUrlAdd").val();  $("#moduleUrlAdd").val("");
+                        console.log(dataObj);
+                        //通过ajax将数据提交到控制器
+                        //ajax提交数据，可以提交json对象  --------------直接对象接收
+                        //也可以提交json格式字符串，（需要声明contentType:"application/json"）   --- @RequestBody
+                        $.ajax({
+                            url:"module/add",
+                            type:"post",
+                            contentType:"application/json",
+                            data:JSON.stringify(dataObj),
+                            success:function(res){
+                                if(res.code==0){
+                                    layer.msg(res.msg);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
     });
 

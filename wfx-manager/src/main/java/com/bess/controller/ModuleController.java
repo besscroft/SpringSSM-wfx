@@ -3,9 +3,11 @@ package com.bess.controller;
 import com.bess.beans.Module;
 import com.bess.beans.TreeNode;
 import com.bess.service.ModuleService;
+import com.bess.util.RandomId;
 import com.bess.vo.LayuiVO;
 import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -84,10 +86,24 @@ public class ModuleController {
 
     @ResponseBody
     @RequestMapping("/listall")
-    public ResultVO listAllModules(){
+    public ResultVO listAllModules() {
         List<TreeNode> modules = moduleService.listTreeModules();
         System.out.println(modules);
         modules.get(0).setSpread(true);
         return new ResultVO(0,"success",modules);
+    }
+
+    @ResponseBody
+    @RequestMapping("/add")
+    public ResultVO insertModule(@RequestBody Module module) {
+        String moduleId = RandomId.getNum(8);
+        boolean b = moduleService.insertModule(moduleId,module.getModuleCode(),module.getModuleName(),module.getModuleUrl());
+        ResultVO vo;
+        if (b) {
+            vo = new ResultVO(0,"添加成功！",null);
+        } else {
+            vo = new ResultVO(1,"添加失败！",null);
+        }
+        return vo;
     }
 }
