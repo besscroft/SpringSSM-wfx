@@ -17,4 +17,5 @@ public interface UserService {
     public List<User> listUserByPage(int page,int limit);   // 分页
     public boolean updateUser(String userId,String userName,String userPwd,String remark,String enabled);    // 更新用户信息
     public boolean deleteUser(String userId);   // 删除用户
+    public boolean insertUser(User user);   // 添加用户
 }

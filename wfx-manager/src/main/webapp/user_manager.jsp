@@ -65,6 +65,28 @@
     </div>
 </div>
 
+<div id="addDiv" style="height: 400px;display: none; padding: 20px">
+    <div class="layui-form-item">
+        用户编号：<input type="text" id="userIdAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        用户名：<input type="text" id="userNameAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        账号：<input type="text" id="accountAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        密码：<input type="text" id="userPwdAdd"/>
+    </div>
+    <br/>
+    <div class="layui-form-item">
+        备注：<input type="text" id="remarkAdd"/>
+    </div>
+</div>
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="layui/layui.all.js"></script>
@@ -150,6 +172,47 @@
                     },
                     btn2:function () {
                         console.log("取消了！！！");
+                    }
+                });
+            }
+        });
+
+        //监听table的toolbar事件
+        table.on("toolbar(test)",function (obj) {
+            console.log(obj);
+            if (obj.event=="add") {
+                var index = layer.open({
+                    type:1,
+                    title:"添加用户",
+                    content:$("#addDiv"),
+                    area:['400px','500px'],
+                    btn:['提交','取消'],
+                    btn1:function () {
+                        layer.close(index);
+                        // 获取输入的数据
+                        var dataObj = {};
+                        dataObj.userId = $("#userIdAdd").val();  $("#userIdAdd").val("");
+                        dataObj.userName = $("#userNameAdd").val();  $("#userNameAdd").val("");
+                        dataObj.account = $("#accountAdd").val();  $("#accountAdd").val("");
+                        dataObj.userPwd = $("#userPwdAdd").val();  $("#userPwdAdd").val("");
+                        dataObj.remark = $("#remarkAdd").val();  $("#remarkAdd").val("");
+                        console.log(dataObj);
+                        //通过ajax将数据提交到控制器
+                        //ajax提交数据，可以提交json对象  --------------直接对象接收
+                        //也可以提交json格式字符串，（需要声明contentType:"application/json"）   --- @RequestBody
+                        $.ajax({
+                            url:"user/add",
+                            type:"post",
+                            contentType:"application/json",
+                            data:JSON.stringify(dataObj),
+                            success:function(res){
+                                if(res.code==0){
+                                    layer.msg(res.msg);
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
                     }
                 });
             }

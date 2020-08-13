@@ -1,13 +1,13 @@
 package com.bess.controller;
 
 import com.bess.beans.Module;
+import com.bess.beans.TreeNode;
 import com.bess.service.ModuleService;
 import com.bess.vo.LayuiVO;
 import com.bess.vo.ResultVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -80,5 +80,14 @@ public class ModuleController {
 
         String str = (state?"授权":"撤销权限")+(i>0?"成功":"失败");
         return  new ResultVO(0,str,null);
+    }
+
+    @ResponseBody
+    @RequestMapping("/listall")
+    public ResultVO listAllModules(){
+        List<TreeNode> modules = moduleService.listTreeModules();
+        System.out.println(modules);
+        modules.get(0).setSpread(true);
+        return new ResultVO(0,"success",modules);
     }
 }
