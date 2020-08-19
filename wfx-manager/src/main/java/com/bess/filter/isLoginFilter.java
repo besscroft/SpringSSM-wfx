@@ -30,19 +30,19 @@ public class isLoginFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers","*");     //设置允许携带header
         response.setHeader("Access-Control-Allow-Credentials","*"); //设置允许携带cookie
 
-        String requestURI = request.getRequestURI();
-        if (requestURI.endsWith("/index.jsp") || requestURI.endsWith("/404.jsp")
-                || requestURI.indexOf("/img/") != -1 || requestURI.indexOf("/css/") != -1
-                || requestURI.indexOf("/fonts/") != -1 || requestURI.indexOf("/js/") != -1
-                || requestURI.endsWith("/error.jsp") || requestURI.indexOf("/layui/") != -1
-                || requestURI.endsWith("/user/login")
+        StringBuffer requestURL = request.getRequestURL();
+        String URL = new String(requestURL);
+        System.out.println(URL);
+        if (URL.endsWith("/index.jsp") || URL.endsWith("/404.jsp")
+                || URL.indexOf("/img/") != -1 || URL.indexOf("/css/") != -1
+                || URL.indexOf("/fonts/") != -1 || URL.indexOf("/js/") != -1
+                || URL.endsWith("/error.jsp") || URL.indexOf("/layui/") != -1
+                || URL.endsWith("/user/login")
         ) {
             // 放行
         } else {
             Object users = request.getSession().getAttribute("user");
             if (users == null) {
-                String uri = request.getRequestURI();
-                System.out.println(uri);
                 response.sendRedirect("index.jsp");
                 return;
             }
