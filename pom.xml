@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <build>
-        <finalName>webapp</finalName>
+        <finalName>wfx</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

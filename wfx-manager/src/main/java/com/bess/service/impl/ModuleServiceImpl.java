@@ -4,6 +4,10 @@ import com.bess.beans.TreeNode;
 import com.bess.dao.ModuleDAO;
 import com.bess.beans.Module;
 import com.bess.service.ModuleService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +24,11 @@ import java.util.List;
 public class ModuleServiceImpl implements ModuleService {
     @Resource
     private ModuleDAO moduleDAO;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     public void setModuleDAO(ModuleDAO moduleDAO) {
         this.moduleDAO = moduleDAO;
@@ -52,8 +61,26 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public List<Module> listModulesByPage(int page, int limit) {
-        int start = (page-1)*limit;
-        return moduleDAO.listModulesByPage(start,limit);
+        List<Module> modules = null;
+        try {
+            // 先从redis中查询
+            String s = (String) stringRedisTemplate.boundHashOps("modules").get("page-" + page);
+            System.out.println(s);
+            if (s == null) {
+                // 如果redis中没有数据，则查询数据库
+                int start = (page-1)*limit;
+                modules = moduleDAO.listModulesByPage(start, limit);
+                // 将List集合转成字符串
+                String jsonStr = mapper.writeValueAsString(modules);
+                stringRedisTemplate.boundHashOps("modules").put("page-" + page,jsonStr);
+            } else {
+                // 如果redis中查出数据了，将json字符串转换成List集合
+                modules = mapper.readValue(s, new TypeReference<List<Module>>() {});
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return modules;
     }
 
     @Override
