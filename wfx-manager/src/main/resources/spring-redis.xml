@@ -22,9 +22,9 @@
     <!--设置链接属性-->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="usePool" value="true"/>
-        <property name="hostName" value="47.244.104.84"/>
+        <property name="hostName" value="???"/>
         <property name="port" value="6379"/>
-        <property name="password" value="Redis@bess666"/>
+        <property name="password" value="???"/>
         <property name="poolConfig" ref="jedisPoolConfig" />
     </bean>
 
