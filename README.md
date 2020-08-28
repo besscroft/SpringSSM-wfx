@@ -2,6 +2,7 @@
 ### 微分销SSM项目
 
 此项目是基于Maven管理开发的一个SSM整合项目，界面采用了[layui](https://www.layui.com/)。
+> 注意，这个是我自己的“练习”项目，并非传统意义上的开源项目，如果你需要期末作业之类的，可能才对你有用！
 
 [![](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square)]() [![](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/besscroft/SpringSSM-wfx/blob/master/LICENSE) [![](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2-%E6%AC%A2%E8%BF%8E%E8%AE%BF%E9%97%AE-orange.svg?style=flat-square)](https://52bess.com/) [![](https://img.shields.io/badge/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7-%E7%88%AA%E5%93%87%E6%B4%BE%E7%94%9F-lightgrey.svg?style=flat-square)]() [![](https://img.shields.io/badge/release-v1.0.0-orange?style=flat-square)]()
 
