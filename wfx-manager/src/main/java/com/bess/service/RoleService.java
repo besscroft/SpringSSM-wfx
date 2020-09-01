@@ -1,7 +1,6 @@
 package com.bess.service;
 
 import com.bess.beans.Role;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
