@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.bess.dao.GoodTypeDAO">
+    <resultMap id="goodTypeMapper" type="GoodType">
+        <id column="type_id" property="typeId"/>
+        <result column="type_name" property="typeName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="type_tag" property="typeTag"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="alisa_code" property="alisaCode"/>
+    </resultMap>
+<!--    public int getCount();  // 查询商品类型的总数量-->
+    <select id="getCount" resultType="int">
+        select count(1) from wxb_good_type
+    </select>
+<!--    public List<GoodType> listGoodType(@Param("start") int start,
+    @Param("limit") int limit);  // 查询所有商品类型信息（分页）-->
+    <select id="listGoodType" resultSets="java.util.List" resultMap="goodTypeMapper">
+        select type_id,type_name,parent_id,type_tag,order_no,alisa_code from wxb_good_type
+        limit #{start},#{limit}
+    </select>
+<!--    public int insertGoodType(GoodType goodType);   // 添加商品类型-->
+    <insert id="insertGoodType">
+        insert into wxb_good_type(type_id,type_name,parent_id,type_tag,order_no,alisa_code)
+        values(#{typeId},#{typeName},#{parentId},#{typeTag},#{orderNo},#{alisaCode})
+    </insert>
+<!--    public int updateGoodType(GoodType goodType);   // 修改商品类型-->
+    <update id="updateGoodType">
+        update wxb_good_type
+        set type_name = #{typeName}, parent_id = #{parentId}, type_tag = #{typeTag}, order_no = #{orderNo}, alisa_code = #{alisaCode}
+        where type_id = #{typeId}
+    </update>
+<!--    public int deleteGoodType(String typeId);   // 删除商品类型-->
+    <delete id="deleteGoodType">
+        delete from wxb_good_type where type_id = #{typeId}
+    </delete>
+<!--    public GoodType getGoodType(String typeId); // 根据typeId查询商品类型信息-->
+    <select id="getGoodType" resultMap="goodTypeMapper">
+        select type_id,type_name,parent_id,type_tag,order_no,alisa_code from wxb_good_type
+        where type_id = #{typeId}
+    </select>
+</mapper>
