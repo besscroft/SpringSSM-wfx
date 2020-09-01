@@ -3,7 +3,6 @@ package com.bess.service.impl;
 import com.bess.dao.UserDAO;
 import com.bess.beans.User;
 import com.bess.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
